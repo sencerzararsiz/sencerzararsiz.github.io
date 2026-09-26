@@ -1,0 +1,29 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><link rel="stylesheet" href="../assets/css/style.css">
+<style>
+html,body{margin:0;width:1200px;height:630px;overflow:hidden;background:#ecebe7;color:#111110}
+@media (prefers-color-scheme: dark){html,body{background:#ecebe7}}
+.og{position:relative;width:1200px;height:630px;padding:64px 72px;box-sizing:border-box;font-family:var(--sans)}
+.og::before{content:"";position:absolute;inset:0;background-image:radial-gradient(#d8d5ce 1.4px,transparent 1.4px);background-size:28px 28px;opacity:.7}
+.top{position:relative;display:flex;align-items:center;gap:14px;font-size:24px;color:#3a3935}
+.dot{width:12px;height:12px;border-radius:50%;background:#ff4f1a}
+h1{position:relative;font-size:104px;line-height:.95;letter-spacing:-.05em;font-weight:600;margin:34px 0 22px}
+p{position:relative;font-size:31px;line-height:1.25;letter-spacing:-.015em;color:#3a3935;margin:0;max-width:760px}
+p em{font-family:var(--serif);font-style:italic;color:#111110;font-size:1.15em}
+.pill{position:absolute;right:72px;bottom:72px;display:flex;align-items:center;gap:14px;height:76px;padding:0 34px;border-radius:38px;background:#111110;color:#f8f7f4;font-size:26px;font-weight:500}
+.pill i{width:34px;height:34px;border-radius:50%;background:#ff4f1a;display:grid;place-items:center}
+.url{position:absolute;left:72px;bottom:72px;font-family:var(--mono);font-size:22px;color:#6e6b64}
+</style></head>
+<body><div class="og">
+<div class="top"><span class="dot"></span><span id="st"></span></div>
+<h1>Ahmet Sencer<br>Zararsız</h1>
+<p id="ld"></p>
+<div class="url">sencerzararsiz.github.io</div>
+<div class="pill"><i><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></i><span id="pl"></span></div>
+</div>
+<script>
+var en=location.search==="?lang=en";
+document.getElementById('st').textContent=en?'Now: Team Lead at GameLaw.io':"Şu an GameLaw.io'da Team Lead";
+document.getElementById('ld').innerHTML=en?'Lawyer · Legal Engineer · Legal Designer. I turn law into interfaces people can actually <em>use</em>.':'Avukat · Legal Engineer · Legal Designer. Hukuku, gerçekten <em>kullanılabilen</em> arayüzlere çeviriyorum.';
+document.getElementById('pl').textContent=en?'Legal design, in code':'Kodla legal design';
+</script></body></html>
