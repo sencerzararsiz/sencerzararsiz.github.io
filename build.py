@@ -16,6 +16,13 @@ from pathlib import Path
 
 import content_legal as LG
 from content_posts import POSTS, SRC, ACCESS
+from content_posts_design import NEW_POSTS, SRC_EXTRA, CLAUSE_LEGAL
+
+SRC.update(SRC_EXTRA)
+_clause_words = len(re.sub(r"<[^>]+>", " ", CLAUSE_LEGAL).split())
+for _p in NEW_POSTS:
+    _p["body"] = _p["body"].replace("{words}", str(_clause_words))
+POSTS.extend(NEW_POSTS)
 
 ROOT = Path(__file__).parent
 SITE = "https://sencerzararsiz.github.io"
@@ -167,7 +174,7 @@ HOME = {
         "reel_pause": "Durdur",
         "reel_play": "Oynat",
         "reel_label": "Hareketli gösterim. Sırasıyla: web sitesinde uyum taraması başlatılıyor; tarama üç bulgu buluyor; eşit ağırlıkta Reddet ve Kabul et düğmeleri olan bir çerez paneli; SMS izni için İYS'ye iletilen bir onay anahtarı; KVKK m.5/2-c'ye dayanan uzun bir aydınlatma cümlesi, 'Adresinizi yalnızca siparişinizi teslim etmek için kullanırız' cümlesine sadeleşiyor; mevzuat aramasında 'm.11' yazılınca 'KVKK m.11, İlgili kişinin hakları' bulunuyor; son olarak 'Uyum raporu hazır' bildirimi.",
-        "marquee": ["Kişisel verilerin korunması", "GDPR", "Tüketici hukuku", "E-ticaret hukuku", "İnternet hukuku", "Sosyal medya hukuku", "Web3 ve kripto varlıklar", "ISO/IEC 27001", "İç denetim", "MASAK uyumu", "Siber güvenlik", "Reklam hukuku", "Fikrî mülkiyet", "Oyun hukuku", "Yapay zekâ", "Kod okuryazarlığı", "Legal Design", "LegalOps"],
+        "marquee": ["Kişisel verilerin korunması", "GDPR", "Tüketici hukuku", "E-ticaret hukuku", "İnternet hukuku", "Sosyal medya hukuku", "Web3 ve kripto varlıklar", "ISO/IEC 27001", "İç denetim", "MASAK uyumu", "Fintek ve ödeme hizmetleri", "Siber güvenlik", "Reklam hukuku", "Fikrî mülkiyet", "Oyun hukuku", "Yapay zekâ", "Kod okuryazarlığı", "Legal Design", "LegalOps"],
         "marquee_hl": ["Legal Design", "ISO/IEC 27001", "Web3 ve kripto varlıklar"],
         "about_k": "Hakkımda",
         "about_big": "Hukuk fakültesinden sonra yolum mahkeme koridorlarından <em>ürün ekiplerine</em> uzandı.",
@@ -188,12 +195,14 @@ HOME = {
         "areas_k": "Çalıştığım alanlar",
         "areas_h": "Nerede <em>çalışıyorum?</em>",
         "areas_p": "Günlük işimde en çok karşılaştığım hukuk alanları. Liste bir hizmet kataloğu değil, çalışma alanlarımın haritası.",
-        "areas_note": "Bu bölüm, TBB Reklam Yasağı Yönetmeliği m.7/d uyarınca faaliyet alanlarını tanıtır; uzmanlık anlamına gelmez.",
+        "areas_note": "Bu bölüm çalıştığım alanları tanıtır; uzmanlık anlamına gelmez.",
         "areas": [
             ("Kişisel verilerin korunması", "KVKK ve GDPR kapsamında idari ve teknik uyum, veri envanteri, aydınlatma ve rıza mimarisi."),
             ("Bilgi güvenliği ve denetim", "ISO/IEC 27001 BGYS denetimleri, belgelendirmeye hazırlık, 7545 sayılı Siber Güvenlik Kanunu."),
             ("İç denetim ve risk analizi", "COSO yaklaşımıyla iç kontrol, regülatif risk analizleri, due diligence ve uyum yol haritaları."),
-            ("Uyum süreçleri ve regülasyon", "5549 sayılı Kanun (MASAK), 6493 sayılı Kanun (ödeme hizmetleri), düzenleyici kurum yazışmaları, mevzuat takibi."),
+            ("MASAK uyumu ve aklamayla mücadele", "5549 sayılı Kanun kapsamında uyum programı, müşterini tanı ilkesi, şüpheli işlem izleme ve bildirim süreçleri; lisanslı MASAK Uyum Görevlisi."),
+            ("Fintek ve ödeme hizmetleri", "6493 sayılı Kanun kapsamında ödeme ve elektronik para kuruluşlarının uyumu; TÖDEB ve TCMB süreçleri, insurtech ve regtech."),
+            ("Uyum süreçleri ve regülasyon", "Düzenleyici kurum yazışmaları (MASAK, TÖDEB, TCMB), mevzuat takibi, uyum programları ve yol haritaları."),
             ("Tüketici hukuku", "Mesafeli sözleşmeler, ön bilgilendirme, cayma ve iade, haksız şartlar."),
             ("E-ticaret hukuku", "6563 sayılı Kanun, ticari elektronik ileti ve İYS, satıcı yükümlülükleri."),
             ("İnternet hukuku", "5651 sayılı Kanun, içerik ve yer sağlayıcı sorumluluğu, içerik kaldırma ve erişim engelleme."),
@@ -222,7 +231,7 @@ HOME = {
         ],
         "ven_k": "Girişimler ve ürünler",
         "ven_h": "İçinde <em>yer aldığım.</em>",
-        "ven_p": "Ekibinde çalıştığım ürünler, hukuki tarafında yer aldığım projeler ve kendi kurduğum ilk girişimler.",
+        "ven_p": "Ekibinde çalıştığım legaltech ve fintek şirketleri, hukuki tarafında yer aldığım projeler ve kendi kurduğum ilk girişimler.",
         "now": "Devam",
         "exp_k": "Deneyim",
         "exp_h": "Adliyeden ürün ekibine.",
@@ -238,7 +247,7 @@ HOME = {
         "posts_p": "Her yazı tek bir uyum sorusunu sade bir dille ele alıyor. Mevzuat atıfları yayın öncesinde birincil kaynaktan kontrol edildi.",
         "edu_k": "Eğitim ve sertifikalar",
         "edu_h": "Hukuk, fintek ve <em>bilişim.</em>",
-        "edu_p": "Hukuk fakültesinden sonra fintek regülasyonu ve yönetim bilişim sistemleri; denetim ve uyum sertifikaları.",
+        "edu_p": "Hukuk fakültesinden sonra fintek regülasyonu, yönetim bilişim sistemleri ve felsefe; denetim ve uyum sertifikaları.",
         "edu_t": "Eğitim",
         "cert_t": "Sertifikalar",
         "langs": ["Türkçe · ana dil", "İngilizce · profesyonel çalışma yetkinliği"],
@@ -259,7 +268,7 @@ HOME = {
         "reel_pause": "Pause",
         "reel_play": "Play",
         "reel_label": "Animated demo. In order: a website compliance scan starts; it finds three issues; a cookie panel with equally weighted Reject and Accept buttons; an SMS consent switch sent to İYS; a long privacy sentence based on KVKK Art. 5(2)(c) is simplified to 'We use your address only to deliver your order'; typing 'm.11' in a statute search finds 'KVKK Art. 11, data subject rights'; finally a 'Compliance report ready' notice.",
-        "marquee": ["Data protection", "GDPR", "Consumer law", "E-commerce law", "Internet law", "Social media law", "Web3 & crypto assets", "ISO/IEC 27001", "Internal audit", "AML compliance", "Cybersecurity", "Advertising law", "Intellectual property", "Games law", "AI", "Code literacy", "Legal Design", "LegalOps"],
+        "marquee": ["Data protection", "GDPR", "Consumer law", "E-commerce law", "Internet law", "Social media law", "Web3 & crypto assets", "ISO/IEC 27001", "Internal audit", "AML compliance", "Fintech & payments", "Cybersecurity", "Advertising law", "Intellectual property", "Games law", "AI", "Code literacy", "Legal Design", "LegalOps"],
         "marquee_hl": ["Legal Design", "ISO/IEC 27001", "Web3 & crypto assets"],
         "about_k": "About",
         "about_big": "After law school, my path ran from courtroom corridors to <em>product teams</em>.",
@@ -280,12 +289,14 @@ HOME = {
         "areas_k": "Areas I work in",
         "areas_h": "Where I <em>work.</em>",
         "areas_p": "The fields of law I deal with most in my daily work. This is a map of my work, not a catalogue of services.",
-        "areas_note": "This section describes fields of activity as permitted by Art. 7(d) of the Turkish Bar Association's Regulation on the Advertising Ban; it does not denote specialisation.",
+        "areas_note": "This section describes the fields I work in; it does not denote specialisation.",
         "areas": [
             ("Data protection", "Administrative and technical compliance under KVKK and GDPR, data inventories, privacy notices and consent architecture."),
             ("Information security and audit", "ISO/IEC 27001 ISMS audits, certification readiness, Cybersecurity Law No. 7545."),
             ("Internal audit and risk analysis", "Internal control with a COSO approach, regulatory risk analyses, due diligence and compliance roadmaps."),
-            ("Compliance and regulation", "Law No. 5549 (AML/MASAK), Law No. 6493 (payment services), regulator correspondence, legislative monitoring."),
+            ("AML and MASAK compliance", "Compliance programmes under Law No. 5549, know-your-customer, suspicious transaction monitoring and reporting; licensed MASAK Compliance Officer."),
+            ("Fintech and payment services", "Compliance of payment and e-money institutions under Law No. 6493; TÖDEB and Central Bank processes, insurtech and regtech."),
+            ("Compliance and regulation", "Regulator correspondence (MASAK, TÖDEB, Central Bank), legislative monitoring, compliance programmes and roadmaps."),
             ("Consumer law", "Distance contracts, pre-contractual information, withdrawal and refunds, unfair terms."),
             ("E-commerce law", "Law No. 6563, commercial electronic messages and İYS, seller obligations."),
             ("Internet law", "Law No. 5651, content and hosting provider liability, content removal and access blocking."),
@@ -314,7 +325,7 @@ HOME = {
         ],
         "ven_k": "Ventures & products",
         "ven_h": "Where I've <em>been part of the team.</em>",
-        "ven_p": "Products whose teams I work in, projects where I handled the legal side, and the early ventures I founded myself.",
+        "ven_p": "Legaltech and fintech companies whose teams I work in, projects where I handled the legal side, and the early ventures I founded myself.",
         "now": "Present",
         "exp_k": "Experience",
         "exp_h": "From courtroom to product team.",
@@ -330,7 +341,7 @@ HOME = {
         "posts_p": "Each piece answers one compliance question in plain language. Articles are in Turkish; statutory references were checked against primary sources before publication.",
         "edu_k": "Education & certifications",
         "edu_h": "Law, fintech and <em>information systems.</em>",
-        "edu_p": "A law degree, then fintech regulation and management information systems; audit and compliance certifications.",
+        "edu_p": "A law degree, then fintech regulation, management information systems and philosophy; audit and compliance certifications.",
         "edu_t": "Education",
         "cert_t": "Certifications",
         "langs": ["Turkish · native", "English · professional working proficiency"],
@@ -412,6 +423,9 @@ VENTURES = [
     ("Lexprotect · Lexzero · Banfake", "", "2025", "2025", "Hukuki altyapı", "Legal side",
      "Marka itibarının korunmasına odaklanan bir proje. Projenin hukuki altyapısı ve uyum tarafında çalıştım.",
      "A project focused on protecting brand reputation. I worked on its legal infrastructure and compliance.", False),
+    ("PARAM", "https://param.com.tr", "2025 – 2026", "2025 – 2026", "Avukat · KVKK ve Regülasyon Uyumu", "Attorney · KVKK & Regulatory Compliance",
+     "Elektronik para ve ödeme kuruluşu. TÖDEB Fintek Çıraklık Programı kapsamında MASAK, ödeme hizmetleri ve KVKK uyumu üzerinde çalıştım.",
+     "An e-money and payment institution. Within the TÖDEB Fintech Apprenticeship Programme I worked on AML (MASAK), payment services and KVKK compliance.", False),
     ("Türkiye Fintek Topluluğu", "", "2025 –", "2025 –", "Kurucu Üye · Genel Sekreter · Eğitmen", "Founding Member · Secretary General · Trainer",
      "5549, 6493 ve 6698 sayılı kanunlar kapsamında insurtech, fintech, regtech, ödeme hizmetleri, Web3, blokzincir, akıllı sözleşmeler ve DAO eğitimleri.",
      "Training and workshops on insurtech, fintech, regtech, payment services, Web3, blockchain, smart contracts and DAOs under Laws No. 5549, 6493 and 6698.", False),
@@ -436,6 +450,7 @@ TEACHING = [
 EDUCATION = [
     ("Atatürk Üniversitesi", "Atatürk University", "Hukuk Fakültesi, lisans", "Faculty of Law, LL.B.", "2018 – 2022", "2018 – 2022", "Erzurum"),
     ("Marmara Üniversitesi", "Marmara University", "TÖDEB Fintek Programı: regülasyon ve uyum, siber güvenlik, finans ve teknoloji", "TÖDEB Fintech Programme: regulation & compliance, cybersecurity, finance & technology", "2024 – 2025", "2024 – 2025", "İstanbul"),
+    ("Ankara Hacı Bayram Veli Üniversitesi", "Ankara Hacı Bayram Veli University", "Felsefe", "Philosophy", "2024 – devam", "2024 – present", "Ankara"),
     ("Anadolu Üniversitesi", "Anadolu University", "Açıköğretim Fakültesi, Yönetim Bilişim Sistemleri lisans", "Open Education Faculty, Management Information Systems (B.Sc.)", "2024 – devam", "2024 – present", "Eskişehir"),
 ]
 
@@ -550,7 +565,7 @@ def footer(lang):
 <footer class="site-foot">
   <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-id"><strong>{NAME}</strong><p>{e(u["foot_tag"])}</p><p><a href="{legal}#{"reklam-yasagi" if lang == "tr" else "advertising"}">{e(u["foot_note"])}</a></p></div>
+      <div class="foot-id"><strong>{NAME}</strong><p>{e(u["foot_tag"])}</p></div>
       {"".join(cols)}
     </div>
     <div class="foot-bottom">{bottom}</div>
@@ -856,7 +871,6 @@ def post_page(p):
         <div class="prose">{body_html}
           <h2 id="kaynakca">{u["sources"]}</h2>
           <ol class="note">{srcs}</ol>
-          <p class="note">{e(u["first"].format(d=fmt_date(p["date"], lang)))}</p>
         </div>
         <p class="disclaimer">{e(u["disclaimer"])}</p>
       </div>
@@ -885,8 +899,8 @@ LEGAL_PAGES = {
                "en": "What this site is, why articles are not legal advice, intellectual property and external links."},
               {"tr": LG.TERMS_TR, "en": LG.TERMS_EN}),
     "legal": ({"tr": "Yasal Bilgiler", "en": "Legal Notice"},
-              {"tr": "Site sahibi, yer sağlayıcı ve avukatlık reklam yasağına ilişkin beyan.",
-               "en": "Site owner, hosting provider and statement on the advertising ban for attorneys."},
+              {"tr": "Site sahibi ve yer sağlayıcıya ilişkin tanıtıcı bilgiler.",
+               "en": "Identifying information on the site owner and hosting provider."},
               {"tr": LG.LEGAL_TR, "en": LG.LEGAL_EN}),
     "a11y": ({"tr": "Erişilebilirlik Beyanı", "en": "Accessibility Statement"},
              {"tr": "WCAG 2.2 AA hedefi, aldığım önlemler, bilinen eksikler ve geri bildirim yolu.",

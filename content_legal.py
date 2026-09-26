@@ -223,15 +223,6 @@ LEGAL_TR = f"""
 <h2 id="yer-saglayici">2. Yer sağlayıcı</h2>
 <p>GitHub, Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, ABD.</p>
 
-<h2 id="reklam-yasagi">3. Avukatlık reklam yasağı beyanı</h2>
-<p>Bu site, 1136 sayılı Avukatlık Kanunu m.55 ile Türkiye Barolar Birliği Reklam Yasağı Yönetmeliği m.7 ve m.11 gözetilerek hazırlanmıştır.</p>
-<ul>
-<li>Site iş elde etme amacı taşımaz; hukuki hizmet teklifi, ücret bilgisi ya da çağrı içermez.</li>
-<li>Müvekkil, referans ya da danışmanlık verilen kişi ve kurum bilgisi yer almaz (Yönetmelik m.7/d).</li>
-<li>"Çalıştığım alanlar" bölümü, Yönetmelik m.7/d'nin izin verdiği ölçüde faaliyet alanlarını tanıtır; <strong>uzmanlık anlamına gelmez</strong>.</li>
-<li>Deneyim, girişim ve sertifika bilgileri, özgeçmiş niteliğinde, meslektaşlarla karşılaştırma içermeden verilir.</li>
-<li>Sitede arama motorunda üst sıraya çıkmaya yönelik kod, anahtar sözcük veya yönlendirme kullanılmaz; ücretli tanıtım yapılmaz (Yönetmelik m.7/e).</li>
-</ul>
 """
 
 LEGAL_EN = f"""
@@ -250,15 +241,6 @@ LEGAL_EN = f"""
 <h2 id="host">2. Hosting provider</h2>
 <p>GitHub, Inc. (GitHub Pages), 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA.</p>
 
-<h2 id="advertising">3. Statement on the advertising ban for attorneys</h2>
-<p>This site was prepared in light of Article 55 of Türkiye's Attorneyship Law No. 1136 and Articles 7 and 11 of the Union of Turkish Bar Associations' Regulation on the Advertising Ban.</p>
-<ul>
-<li>The site does not aim to solicit work; it contains no offer of legal services, fees or calls to action.</li>
-<li>It names no clients, references or persons advised (Regulation Art. 7(d)).</li>
-<li>"Areas I work in" describes fields of activity as permitted by Art. 7(d); <strong>it does not denote specialisation</strong>.</li>
-<li>Experience, ventures and certifications are given as a CV, without comparison to colleagues.</li>
-<li>No code, keywords or redirects aimed at search-engine ranking are used, and nothing is promoted for payment (Art. 7(e)).</li>
-</ul>
 """
 
 # --------------------------------------------------------------------------- Erişilebilirlik

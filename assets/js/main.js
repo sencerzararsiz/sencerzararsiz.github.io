@@ -97,9 +97,10 @@
   } else els.forEach(function (el) { el.classList.add("in"); });
 
   // ---------- Legal design: Hukukça / Sade dil ----------
-  var seg = document.querySelector("[data-ld]");
-  var stage = document.querySelector(".ld-stage");
-  if (seg && stage) {
+  document.querySelectorAll("[data-ld]").forEach(function (seg) {
+    var box = seg.closest(".ld, .ld-demo");
+    var stage = box && box.querySelector(".ld-stage");
+    if (!stage) return;
     var panes = { legal: stage.querySelector(".ld-legal"), plain: stage.querySelector(".ld-plain") };
     var buttons = seg.querySelectorAll("button");
     function setMode(mode) {
@@ -110,8 +111,9 @@
       var to = panes[mode].offsetHeight;
       stage.style.height = from + "px";
       requestAnimationFrame(function () { stage.style.height = to + "px"; });
+      setTimeout(function () { stage.style.height = ""; }, 700);
     }
     stage.addEventListener("transitionend", function (e) { if (e.propertyName === "height") stage.style.height = ""; });
     buttons.forEach(function (b) { b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); }); });
-  }
+  });
 })();
