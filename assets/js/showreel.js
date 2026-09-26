@@ -203,6 +203,7 @@
   readColors();
   var mq = window.matchMedia("(prefers-color-scheme: dark)");
   if (mq.addEventListener) mq.addEventListener("change", function () { readColors(); seek(t); });
+  document.addEventListener("sz-theme", function () { readColors(); seek(t); });
 
   // ---------- seek(t): saf zaman fonksiyonu ----------
   function seek(t) {
@@ -312,6 +313,7 @@
       var lbl = btn.querySelector(".lbl");
       if (lbl) lbl.textContent = v ? btn.getAttribute("data-pause") : btn.getAttribute("data-play");
     }
+    document.documentElement.classList.toggle("motion-paused", !v);
     last = null;
     loop();
   }
