@@ -28,7 +28,11 @@
   var mq = window.matchMedia("(prefers-color-scheme: dark)");
   function currentTheme() { return doc.getAttribute("data-theme") || (mq.matches ? "dark" : "light"); }
   function setTheme(t) {
+    // Geçiş animasyonlarını bir kareliğine kapat: renkler eski temada takılı kalmasın
+    doc.classList.add("theme-switching");
     doc.setAttribute("data-theme", t);
+    void doc.offsetWidth;
+    requestAnimationFrame(function () { requestAnimationFrame(function () { doc.classList.remove("theme-switching"); }); });
     if (consent && consent.pref) { try { localStorage.setItem(THEME, t); } catch (e) {} }
     syncThemeBtn();
     document.dispatchEvent(new CustomEvent("sz-theme"));
@@ -116,4 +120,71 @@
     stage.addEventListener("transitionend", function (e) { if (e.propertyName === "height") stage.style.height = ""; });
     buttons.forEach(function (b) { b.addEventListener("click", function () { setMode(b.getAttribute("data-mode")); }); });
   });
+})();
+
+// Yazılar: konuya göre süzme
+(function () {
+  var group = document.querySelector("[data-filter]");
+  var list = document.querySelector("[data-filter-list]");
+  if (!group || !list) return;
+  var status = document.querySelector("[data-filter-status]");
+  var cards = list.querySelectorAll("[data-cat]");
+  group.addEventListener("click", function (ev) {
+    var b = ev.target.closest("button[data-cat]");
+    if (!b) return;
+    var cat = b.getAttribute("data-cat"), n = 0;
+    group.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-pressed", String(x === b)); });
+    cards.forEach(function (c) {
+      var show = cat === "*" || c.getAttribute("data-cat") === cat;
+      c.hidden = !show;
+      if (show) { n++; c.classList.add("in"); }
+    });
+    if (status) status.textContent = n + (document.documentElement.lang === "en" ? " articles shown" : " yazı gösteriliyor");
+  });
+})();
+
+// Mobil menü
+(function () {
+  var head = document.querySelector(".site-head");
+  var btn = document.querySelector(".menu-btn");
+  if (!head || !btn) return;
+  function set(open) {
+    head.classList.toggle("menu-open", open);
+    btn.setAttribute("aria-expanded", String(open));
+  }
+  btn.addEventListener("click", function () { set(btn.getAttribute("aria-expanded") !== "true"); });
+  document.querySelectorAll(".nav-links a").forEach(function (a) { a.addEventListener("click", function () { set(false); }); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && head.classList.contains("menu-open")) { set(false); btn.focus(); } });
+  document.addEventListener("click", function (e) { if (!head.contains(e.target)) set(false); });
+})();
+
+// Animasyon kaydırıcısı
+(function () {
+  var box = document.querySelector("[data-reels]");
+  if (!box) return;
+  var trackEl = box.querySelector(".reels-track");
+  var slides = box.querySelectorAll(".reel-slide");
+  var tabs = box.querySelectorAll("[data-slide]");
+  function mark(i) {
+    slides.forEach(function (s, k) { s.classList.toggle("is-active", k === i); });
+    tabs.forEach(function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
+  }
+  mark(0);
+  if (/[?&]reel2=/.test(location.search)) { trackEl.style.scrollBehavior = "auto"; trackEl.scrollLeft = slides[1].offsetLeft - trackEl.offsetLeft; mark(1); }
+  tabs.forEach(function (b) {
+    b.addEventListener("click", function () {
+      var i = +b.getAttribute("data-slide");
+      trackEl.scrollTo({ left: slides[i].offsetLeft - trackEl.offsetLeft, behavior: "smooth" });
+      mark(i);
+    });
+  });
+  var tmr;
+  trackEl.addEventListener("scroll", function () {
+    clearTimeout(tmr);
+    tmr = setTimeout(function () {
+      var best = 0, dist = Infinity;
+      slides.forEach(function (s, k) { var d = Math.abs(s.offsetLeft - trackEl.offsetLeft - trackEl.scrollLeft); if (d < dist) { dist = d; best = k; } });
+      mark(best);
+    }, 80);
+  }, { passive: true });
 })();

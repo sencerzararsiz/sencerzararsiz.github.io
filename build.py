@@ -15,6 +15,7 @@ from math import ceil
 from pathlib import Path
 
 import content_legal as LG
+from content_resources import RESOURCES
 from content_posts import POSTS, SRC, ACCESS
 from content_posts_design import NEW_POSTS, SRC_EXTRA, CLAUSE_LEGAL
 
@@ -23,6 +24,20 @@ _clause_words = len(re.sub(r"<[^>]+>", " ", CLAUSE_LEGAL).split())
 for _p in NEW_POSTS:
     _p["body"] = _p["body"].replace("{words}", str(_clause_words))
 POSTS.extend(NEW_POSTS)
+
+# Ek yazı modülleri (varsa): her biri POSTS_* ve SRC_* tanımlar
+import importlib
+for _mod, _plist, _slist in (("content_posts_uyum", "POSTS_UYUM", "SRC_UYUM"),
+                             ("content_posts_tech", "POSTS_TECH", "SRC_TECH"),
+                             ("content_posts_yonetim", "POSTS_YON", "SRC_YON"),
+                             ("content_posts_fintek", "POSTS_FIN", "SRC_FIN"),
+                             ("content_posts_scraping", "POSTS_SCR", "SRC_SCR")):
+    try:
+        _m = importlib.import_module(_mod)
+    except ModuleNotFoundError:
+        continue
+    SRC.update(getattr(_m, _slist))
+    POSTS.extend(getattr(_m, _plist))
 
 ROOT = Path(__file__).parent
 SITE = "https://sencerzararsiz.github.io"
@@ -64,6 +79,7 @@ PATHS = {
     "legal": ("/yasal-bilgiler/", "/en/legal-notice/"),
     "a11y": ("/erisilebilirlik/", "/en/accessibility/"),
     "sitemap": ("/site-haritasi/", "/en/sitemap/"),
+    "resources": ("/kaynaklar/", "/en/resources/"),
 }
 def P(key, lang):
     return PATHS[key][0 if lang == "tr" else 1]
@@ -92,14 +108,14 @@ def slugify(t):
 UI = {
     "tr": {
         "skip": "İçeriğe geç",
-        "nav": [("/#hakkimda", "Hakkımda"), ("/#alanlar", "Alanlar"), ("/#deneyim", "Deneyim"), ("/yazilar/", "Yazılar"), ("/#iletisim", "İletişim")],
+        "nav": [("/#hakkimda", "Hakkımda"), ("/#deneyim", "Deneyim"), ("/#alanlar", "Alanlar"), ("/yazilar/", "Yazılar"), ("/#iletisim", "İletişim")],
         "nav_label": "Ana menü",
         "theme": "Koyu temayı aç/kapat",
         "home": "Ana sayfa",
         "foot_tag": "Avukat. Teknoloji hukuku, regülasyon uyumu ve legal design üzerine çalışıyorum.",
         "foot_note": "Bu site bir özgeçmiş ve yayın sayfasıdır; iş elde etme amacı taşımaz.",
         "foot_cols": [
-            ("Site", [("/", "Ana sayfa"), ("/yazilar/", "Yazılar"), ("/site-haritasi/", "Site haritası"), ("/en/", "English")]),
+            ("Site", [("/", "Ana sayfa"), ("/yazilar/", "Yazılar"), ("/kaynaklar/", "Kaynaklar"), ("/site-haritasi/", "Site haritası"), ("/en/", "English")]),
             ("Hukuki", [("/kvkk-aydinlatma-metni/", "KVKK Aydınlatma Metni"), ("/cerez-politikasi/", "Çerez Politikası"), ("/kullanim-kosullari/", "Kullanım Koşulları"), ("/yasal-bilgiler/", "Yasal Bilgiler")]),
             ("Erişim", [("/erisilebilirlik/", "Erişilebilirlik Beyanı"), ("#consent", "Çerez tercihleri"), (LINKEDIN, "LinkedIn")]),
         ],
@@ -126,14 +142,14 @@ UI = {
     },
     "en": {
         "skip": "Skip to content",
-        "nav": [("/en/#about", "About"), ("/en/#areas", "Areas"), ("/en/#experience", "Experience"), ("/en/writing/", "Writing"), ("/en/#contact", "Contact")],
-        "nav_label": "Main",
+        "nav": [("/en/#about", "About"), ("/en/#experience", "Experience"), ("/en/#areas", "Areas"), ("/en/writing/", "Writing"), ("/en/#contact", "Contact")],
+        "nav_label": "Main menu",
         "theme": "Toggle dark theme",
         "home": "Home",
         "foot_tag": "Attorney. I work on technology law, regulatory compliance and legal design.",
         "foot_note": "This site is a CV and publications page; it is not intended to solicit work.",
         "foot_cols": [
-            ("Site", [("/en/", "Home"), ("/en/writing/", "Writing"), ("/en/sitemap/", "Sitemap"), ("/", "Türkçe")]),
+            ("Site", [("/en/", "Home"), ("/en/writing/", "Writing"), ("/en/resources/", "Resources"), ("/en/sitemap/", "Sitemap"), ("/", "Türkçe")]),
             ("Legal", [("/en/privacy/", "Privacy Notice"), ("/en/cookies/", "Cookie Policy"), ("/en/terms/", "Terms of Use"), ("/en/legal-notice/", "Legal Notice")]),
             ("Access", [("/en/accessibility/", "Accessibility Statement"), ("#consent", "Cookie preferences"), (LINKEDIN, "LinkedIn")]),
         ],
@@ -154,7 +170,7 @@ UI = {
         "sources": "Sources",
         "accessed": "accessed",
         "first": "First published on the Legalitify blog ({d}); reviewed and updated here.",
-        "disclaimer": "General information based on the law at the date of publication. Not legal advice or an offer of services.",
+        "disclaimer": "This article provides general information based on the law as at the date of publication. It is not legal advice or an offer of legal services; current legislation should be checked before applying it to a specific case.",
         "more": "More articles",
         "all_posts": "All articles",
     },
@@ -171,10 +187,13 @@ HOME = {
         "cta1": "LinkedIn profilim",
         "cta2": "Yazılarım",
         "reel_cap": "Bu animasyonun tamamı kod. Tek bir şekil, bir uyum akışını baştan sona anlatıyor.",
+        "reel1_tab": "Uyum akışı",
+        "reel2_tab": "Sözleşme süreci",
+        "reel2_label": "Hareketli gösterim. Sırasıyla: bir hizmet sözleşmesi taslağı; müzakerede sınırsız sorumluluk cümlesinin üstü çiziliyor ve yerine sorumluluğun sözleşme bedeliyle sınırlandığı yazılıyor; hukuk, finans ve yönetim onayları sırayla veriliyor; sözleşme e-imzayla imzalanıyor; teslim, kabul testi ve yenileme bildirimi süreleri takvimde izleniyor; son olarak yenilemeye 30 gün kaldığı uyarısı.",
         "reel_pause": "Durdur",
         "reel_play": "Oynat",
         "reel_label": "Hareketli gösterim. Sırasıyla: web sitesinde uyum taraması başlatılıyor; tarama üç bulgu buluyor; eşit ağırlıkta Reddet ve Kabul et düğmeleri olan bir çerez paneli; SMS izni için İYS'ye iletilen bir onay anahtarı; KVKK m.5/2-c'ye dayanan uzun bir aydınlatma cümlesi, 'Adresinizi yalnızca siparişinizi teslim etmek için kullanırız' cümlesine sadeleşiyor; mevzuat aramasında 'm.11' yazılınca 'KVKK m.11, İlgili kişinin hakları' bulunuyor; son olarak 'Uyum raporu hazır' bildirimi.",
-        "marquee": ["Kişisel verilerin korunması", "GDPR", "Tüketici hukuku", "E-ticaret hukuku", "İnternet hukuku", "Sosyal medya hukuku", "Web3 ve kripto varlıklar", "ISO/IEC 27001", "İç denetim", "MASAK uyumu", "Fintek ve ödeme hizmetleri", "Siber güvenlik", "Reklam hukuku", "Fikrî mülkiyet", "Oyun hukuku", "Yapay zekâ", "Kod okuryazarlığı", "Legal Design", "LegalOps"],
+        "marquee": ["Sözleşme yönetimi", "Kişisel verilerin korunması", "GDPR", "Tüketici hukuku", "E-ticaret hukuku", "İnternet hukuku", "Sosyal medya hukuku", "Web3 ve kripto varlıklar", "ISO/IEC 27001", "İç denetim", "MASAK uyumu", "Fintek ve ödeme hizmetleri", "Siber güvenlik", "Reklam hukuku", "Fikrî mülkiyet", "Oyun hukuku", "Yapay zekâ", "Kod okuryazarlığı", "Legal Design", "LegalOps"],
         "marquee_hl": ["Legal Design", "ISO/IEC 27001", "Web3 ve kripto varlıklar"],
         "about_k": "Hakkımda",
         "about_big": "Hukuk fakültesinden sonra yolum mahkeme koridorlarından <em>ürün ekiplerine</em> uzandı.",
@@ -197,6 +216,7 @@ HOME = {
         "areas_p": "Günlük işimde en çok karşılaştığım hukuk alanları. Liste bir hizmet kataloğu değil, çalışma alanlarımın haritası.",
         "areas_note": "Bu bölüm çalıştığım alanları tanıtır; uzmanlık anlamına gelmez.",
         "areas": [
+            ("Sözleşmeler ve sözleşme süreçleri", "Ticari ve teknoloji sözleşmelerinin hazırlanması, incelenmesi ve müzakeresi; hizmet, SaaS, sponsorluk ve ortaklık sözleşmeleri; taslaktan yenilemeye sözleşme yönetimi (CLM)."),
             ("Kişisel verilerin korunması", "KVKK ve GDPR kapsamında idari ve teknik uyum, veri envanteri, aydınlatma ve rıza mimarisi."),
             ("Bilgi güvenliği ve denetim", "ISO/IEC 27001 BGYS denetimleri, belgelendirmeye hazırlık, 7545 sayılı Siber Güvenlik Kanunu."),
             ("İç denetim ve risk analizi", "COSO yaklaşımıyla iç kontrol, regülatif risk analizleri, due diligence ve uyum yol haritaları."),
@@ -211,7 +231,7 @@ HOME = {
             ("Web3 ve kripto varlık hukuku", "Blokzincir projelerinin regülasyon analizi, akıllı sözleşmeler, DAO yapıları, zincir üzerinde veri koruma."),
             ("Fikrî mülkiyet", "5846 sayılı FSEK kapsamında telif, marka, yazılım ve dijital içerik hakları."),
             ("Oyun ve espor hukuku", "Geliştirme ve yayıncılık sözleşmeleri, oyun içi ekonomi, oyuncu verileri."),
-            ("Yapay zekâ ve teknoloji sözleşmeleri", "Yapay zekâ yönetişimi, SaaS sözleşmeleri, sözleşme yönetimi (CLM)."),
+            ("Yapay zekâ yönetişimi", "Yapay zekâ sistemlerinin hukuki risk analizi, kullanım politikaları ve AB Yapay Zekâ Tüzüğü'ne hazırlık."),
             ("Girişim hukuku", "Şirketleşme, yatırım turları ve hissedarlar sözleşmeleri (SHA)."),
         ],
         "ld_k": "Legal design, canlı",
@@ -240,8 +260,8 @@ HOME = {
         "teach_h": "Bildiğini <em>paylaşmak.</em>",
         "teach_p": "Legal design, legaltech ve bilişim hukuku eğitimleri; bilişim ve teknoloji topluluklarında atölyeler.",
         "pub_k": "Makale",
-        "pub_t": "Web3 ve Endüstri 4.0: blokzincir üzerinde kişisel verilerin korunmasına yönelik öneriler",
-        "pub_d": "Değiştirilemez kayıt mantığı ile silme hakkı, veri minimizasyonu ve veri sorumlusunun belirlenmesi arasındaki gerilim üzerine.",
+        "pub_t": "Endüstri 4.0'da Verinin Önemi ve Veri Koruma Bakımından Blokzincir Teknolojisine Özgü Yenilikler",
+        "pub_d": "Değiştirilemez kayıt mantığı ile silme hakkı arasındaki gerilim ve açık zincirlerde veri sorumlusunun kim olduğu sorusu üzerine.",
         "posts_k": "Yazılar",
         "posts_h": "Uyumu anlaşılır <em>yazmak.</em>",
         "posts_p": "Her yazı tek bir uyum sorusunu sade bir dille ele alıyor. Mevzuat atıfları yayın öncesinde birincil kaynaktan kontrol edildi.",
@@ -253,22 +273,25 @@ HOME = {
         "langs": ["Türkçe · ana dil", "İngilizce · profesyonel çalışma yetkinliği"],
         "contact_h": "<em>Merhaba</em> demek için.",
         "contact_p": "Yazılarım, eğitimler ya da legaltech ve legal design üzerine fikir alışverişi için LinkedIn'den veya e-postayla ulaşabilirsiniz.",
-        "contact_kvkk": 'E-posta gönderdiğinizde kişisel verileriniz <a href="/kvkk-aydinlatma-metni/">KVKK Aydınlatma Metni</a>\'ne uygun olarak işlenir. Lütfen mesajınıza özel nitelikli kişisel veri eklemeyin.',
+        "contact_kvkk": 'E-posta gönderirseniz verileriniz yalnızca yanıt vermek için kullanılır. Ayrıntılar: <a href="/kvkk-aydinlatma-metni/">KVKK Aydınlatma Metni</a>.',
         "email_btn": "E-posta",
     },
     "en": {
         "title": "Ahmet Sencer Zararsız · Attorney",
         "desc": "Ahmet Sencer Zararsız. Attorney working on technology law, regulatory compliance, legaltech and legal design. CV, writing and training.",
-        "og_locale": "en_US",
+        "og_locale": "en_GB",
         "status": "Now: Team Lead at Legalitify",
         "lead": "Compliance, audit, technology. I take law off the page and turn it into a system that <em>works</em>.",
         "cta1": "My LinkedIn",
         "cta2": "Writing",
         "reel_cap": "Every frame of this animation is code. One shape tells a whole compliance flow.",
+        "reel1_tab": "Compliance flow",
+        "reel2_tab": "Contract lifecycle",
+        "reel2_label": "Animated demo. In order: a services agreement draft; in negotiation an unlimited liability sentence is struck through and replaced with a cap at the contract price; legal, finance and management approvals are given in turn; the agreement is e-signed; delivery, acceptance test and renewal notice deadlines are tracked; finally a 30-days-to-renewal alert.",
         "reel_pause": "Pause",
         "reel_play": "Play",
         "reel_label": "Animated demo. In order: a website compliance scan starts; it finds three issues; a cookie panel with equally weighted Reject and Accept buttons; an SMS consent switch sent to İYS; a long privacy sentence based on KVKK Art. 5(2)(c) is simplified to 'We use your address only to deliver your order'; typing 'm.11' in a statute search finds 'KVKK Art. 11, data subject rights'; finally a 'Compliance report ready' notice.",
-        "marquee": ["Data protection", "GDPR", "Consumer law", "E-commerce law", "Internet law", "Social media law", "Web3 & crypto assets", "ISO/IEC 27001", "Internal audit", "AML compliance", "Fintech & payments", "Cybersecurity", "Advertising law", "Intellectual property", "Games law", "AI", "Code literacy", "Legal Design", "LegalOps"],
+        "marquee": ["Contract management", "Data protection", "GDPR", "Consumer law", "E-commerce law", "Internet law", "Social media law", "Web3 & crypto assets", "ISO/IEC 27001", "Internal audit", "AML compliance", "Fintech & payments", "Cybersecurity", "Advertising law", "Intellectual property", "Games law", "AI", "Code literacy", "Legal Design", "LegalOps"],
         "marquee_hl": ["Legal Design", "ISO/IEC 27001", "Web3 & crypto assets"],
         "about_k": "About",
         "about_big": "After law school, my path ran from courtroom corridors to <em>product teams</em>.",
@@ -284,28 +307,29 @@ HOME = {
             ("scale", "Law", "Technology, IT and regulation", "KVKK and GDPR compliance, Cybersecurity Law No. 7545, e-commerce, internet and advertising rules, intellectual property, mediation."),
             ("code", "Legal engineering", "Law and code, one language", "I'm code-literate: I speak the same language as engineering teams and read a product's legal risk from its code. Legal infrastructure for legaltech products, conditional text templates, AI governance and LegalOps."),
             ("design", "Legal design", "Text that gets read and used", "Plain language, layered privacy notices, user-centred contract architecture, without giving up legal accuracy."),
-            ("spark", "Audit and compliance", "From obligation to control", "ISO/IEC 27001 ISMS audits, internal control with a COSO approach, regulatory risk analyses, AML compliance and compliance roadmaps."),
+            ("spark", "Audit and compliance", "From obligation to control", "ISO/IEC 27001 ISMS audits, internal control based on the COSO framework, regulatory risk analyses, AML compliance and compliance roadmaps."),
         ],
         "areas_k": "Areas I work in",
         "areas_h": "Where I <em>work.</em>",
         "areas_p": "The fields of law I deal with most in my daily work. This is a map of my work, not a catalogue of services.",
         "areas_note": "This section describes the fields I work in; it does not denote specialisation.",
         "areas": [
+            ("Contracts and contract processes", "Drafting, reviewing and negotiating commercial and technology agreements; services, SaaS, sponsorship and partnership agreements; contract lifecycle management (CLM) from draft to renewal."),
             ("Data protection", "Administrative and technical compliance under KVKK and GDPR, data inventories, privacy notices and consent architecture."),
             ("Information security and audit", "ISO/IEC 27001 ISMS audits, certification readiness, Cybersecurity Law No. 7545."),
-            ("Internal audit and risk analysis", "Internal control with a COSO approach, regulatory risk analyses, due diligence and compliance roadmaps."),
+            ("Internal audit and risk analysis", "Internal control based on the COSO framework, regulatory risk analyses, due diligence and compliance roadmaps."),
             ("AML and MASAK compliance", "Compliance programmes under Law No. 5549, know-your-customer, suspicious transaction monitoring and reporting; licensed MASAK Compliance Officer."),
-            ("Fintech and payment services", "Compliance of payment and e-money institutions under Law No. 6493; TÖDEB and Central Bank processes, insurtech and regtech."),
+            ("Fintech and payment services", "Compliance of payment and e-money institutions under Law No. 6493; TÖDEB and Central Bank of the Republic of Türkiye (CBRT) processes, insurtech and regtech."),
             ("Compliance and regulation", "Regulator correspondence (MASAK, TÖDEB, Central Bank), legislative monitoring, compliance programmes and roadmaps."),
-            ("Consumer law", "Distance contracts, pre-contractual information, withdrawal and refunds, unfair terms."),
-            ("E-commerce law", "Law No. 6563, commercial electronic messages and İYS, seller obligations."),
+            ("Consumer law", "Distance contracts, pre-contractual information, right of withdrawal and refunds, unfair terms."),
+            ("E-commerce law", "Law No. 6563, commercial electronic messages and İYS (Message Management System), seller obligations."),
             ("Internet law", "Law No. 5651, content and hosting provider liability, content removal and access blocking."),
             ("Social media law", "Influencer partnerships, covert advertising, reputation management and content disputes."),
             ("Advertising law", "Commercial advertising principles, substantiating claims, defence and settlement before the Advertising Board."),
             ("Web3 and crypto-asset law", "Regulatory analysis of blockchain projects, smart contracts, DAO structures, on-chain data protection."),
             ("Intellectual property", "Copyright under Law No. 5846, trademarks, software and digital content rights."),
             ("Games and esports law", "Development and publishing agreements, in-game economies, player data."),
-            ("AI and technology contracts", "AI governance, SaaS agreements, contract lifecycle management (CLM)."),
+            ("AI governance", "Legal risk analysis of AI systems, usage policies and readiness for the EU AI Act."),
             ("Startup law", "Incorporation, investment rounds and shareholders' agreements (SHAs)."),
         ],
         "ld_k": "Legal design, live",
@@ -313,7 +337,7 @@ HOME = {
         "ld_p": "Legal design makes a text readable and usable without losing legal accuracy. Below is a single paragraph from an e-commerce privacy notice under Türkiye's data protection law (KVKK). Switch between the two versions.",
         "ld_note": "Illustrative example, not legal advice.",
         "ld_btn": ("Legalese", "Plain language"),
-        "ld_legal": "In its capacity as data controller, the Company processes your identity and contact data for the purpose of performing your order, on the legal ground set out in Article 5(2)(c) of the Personal Data Protection Law No. 6698, namely that the processing of personal data belonging to the parties to a contract is necessary, provided that it is directly related to the conclusion or performance of that contract; and, limited to that purpose, such data may be transferred to cargo service providers pursuant to Article 8 of the Law. You may submit requests concerning your rights listed in Article 11 of the Law to the Company.",
+        "ld_legal": "In its capacity as data controller, the Company processes your identity and contact data for the purpose of fulfilling your order, on the legal ground set out in Article 5(2)(c) of the Personal Data Protection Law No. 6698, namely that the processing of personal data belonging to the parties to a contract is necessary, provided that it is directly related to the conclusion or performance of that contract; and, limited to that purpose, such data may be transferred to courier service providers pursuant to Article 8 of the Law. You may submit requests concerning your rights listed in Article 11 of the Law to the Company.",
         "ld_meter": ["2 sentences", "{words} words", "Readability: hard"],
         "ld_plain_h": "To deliver your order, we need a few details from you.",
         "ld_rows": [
@@ -334,8 +358,8 @@ HOME = {
         "teach_h": "Sharing <em>what I know.</em>",
         "teach_p": "Legal design, legaltech and IT law training; workshops in IT and technology communities.",
         "pub_k": "Article",
-        "pub_t": "Web3 and Industry 4.0: recommendations for protecting personal data on the blockchain",
-        "pub_d": "On the tension between immutable ledgers and the right to erasure, data minimisation and identifying the data controller.",
+        "pub_t": "The Importance of Data in Industry 4.0 and Blockchain-Specific Innovations in Data Protection (in Turkish)",
+        "pub_d": "On the tension between immutable ledgers and the right to erasure, and who the data controller is on public chains.",
         "posts_k": "Writing",
         "posts_h": "Writing compliance <em>clearly.</em>",
         "posts_p": "Each piece answers one compliance question in plain language. Articles are in Turkish; statutory references were checked against primary sources before publication.",
@@ -347,7 +371,7 @@ HOME = {
         "langs": ["Turkish · native", "English · professional working proficiency"],
         "contact_h": "To say <em>hello.</em>",
         "contact_p": "To talk about my writing, training, or ideas on legaltech and legal design, reach me on LinkedIn or by e-mail.",
-        "contact_kvkk": 'If you e-mail me, your personal data is processed as described in the <a href="/en/privacy/">Privacy Notice</a>. Please don\'t include special categories of personal data.',
+        "contact_kvkk": 'If you e-mail me, your data is used only to reply. Details: <a href="/en/privacy/">Privacy Notice</a>.',
         "email_btn": "E-mail",
     },
 }
@@ -384,7 +408,7 @@ EXPERIENCE = [
      ["Regulatory compliance and compliance roadmaps under Cybersecurity Law No. 7545, KVKK, GDPR and Laws No. 6563, 5809 and 5651.",
       "Company audits and certification readiness under ISO/IEC 27001 ISMS; reporting of audit findings and risk analyses.",
       "KVKK compliance projects (mobile, web and physical): data inventories, privacy notices, explicit consent texts and documentation.",
-      "Internal control and internal audit with a COSO approach; risk analysis, due diligence and risk reporting.",
+      "Internal control and internal audit based on the COSO framework; risk analysis, due diligence and risk reporting.",
       "Legal risk analyses for AI, Web3, fintech, e-commerce and SaaS products; SaaS agreements, contract lifecycle management (CLM) and negotiation.",
       "Startup law and investment rounds (incorporation, SHAs); corporate transactions in Türkiye, Europe and MENA; corporate and health law advisory.",
       "Defence and settlement before the Advertising Board; copyright and trademark disputes; mediation. Legal design, compliance architecture and corporate training."]),
@@ -402,7 +426,7 @@ EXPERIENCE = [
      ["Regulatory monitoring, compliance analysis and reporting in the blockchain field."]),
     ("Mayıs – Eylül 2024", "May – Sep 2024", False, "HTO Hukuk & Danışmanlık", "Avukat", "Attorney", "Ankara", "Ankara",
      ["Dava takibi ve vekillik, sözleşme süreçleri, KVKK metinleri, mevzuat takibi ve hukuki görüş."],
-     ["Case management and representation, contracts, KVKK documentation, legislative monitoring and legal opinions."]),
+     ["Litigation and legal representation, contracts, KVKK documentation, legislative monitoring and legal opinions."]),
     ("Haziran 2023 – Şubat 2025", "Jun 2023 – Feb 2025", False, "Sencer & Partners", "Kurucu · Avukat · Eğitmen", "Founder · Attorney · Trainer", "Ankara · hibrit", "Ankara · hybrid",
      ["Arabuluculuk, tahkim ve duruşma temsili; hukuki görüş ve uyum projeleri.",
       "Girişim kuruluşu, yatırım süreçleri ve hissedarlar sözleşmeleri (SHA); hukuk teknolojileri ve inovasyon atölyeleri."],
@@ -410,17 +434,17 @@ EXPERIENCE = [
       "Startup incorporation, investment processes and shareholders' agreements (SHAs); legal technology and innovation workshops."]),
     ("Ocak 2023 – Mayıs 2024", "Jan 2023 – May 2024", False, "H. Güzel Hukuk & Danışmanlık", "Stajyer Avukat", "Trainee Lawyer", "Ankara", "Ankara",
      ["Dava açılış işlemleri, dilekçe hazırlama ve duruşma temsili; sözleşme ve icra süreçleri."],
-     ["Filing proceedings, drafting pleadings and court representation; contracts and enforcement proceedings."]),
+     ["Filing lawsuits, drafting pleadings and attending hearings; contracts and enforcement proceedings."]),
 ]
 
 VENTURES = [
     ("Legalitify", "https://legalitify.com", "2025 –", "2025 –", "Team Lead · Legal Engineer", "Team Lead · Legal Engineer",
      "Web sitelerini, reklamları ve sözleşmeleri veri koruma, tüketici ve reklam mevzuatına göre tarayıp mevzuat atıflı düzeltme öneren legaltech ürünü.",
-     "A legaltech product that scans websites, ads and contracts against data protection, consumer and advertising law and proposes cited fixes.", True),
+     "A legaltech product that scans websites, ads and contracts against data protection, consumer and advertising law and proposes fixes with statutory references.", True),
     ("GameLaw.io", "https://gamelaw.io", "Güncel", "Current", "Legal Development · Legal Engineer · Marketing", "Legal Development · Legal Engineer · Marketing",
      "Oyun ekosisteminin hukuki altyapısı: geliştiriciler, stüdyolar, yayıncılar, yatırımcılar ve espor için analiz araçları, rehberler ve sözleşme havuzu.",
      "Legal infrastructure for the games ecosystem: analysis tools, guides and a contract library for developers, studios, publishers, investors and esports.", False),
-    ("Lexprotect · Lexzero · Banfake", "", "2025", "2025", "Hukuki altyapı", "Legal side",
+    ("Lexprotect · Lexzero · Banfake", "", "2025", "2025", "Hukuki altyapı", "Legal infrastructure",
      "Marka itibarının korunmasına odaklanan bir proje. Projenin hukuki altyapısı ve uyum tarafında çalıştım.",
      "A project focused on protecting brand reputation. I worked on its legal infrastructure and compliance.", False),
     ("PARAM", "https://param.com.tr", "2025 – 2026", "2025 – 2026", "Avukat · KVKK ve Regülasyon Uyumu", "Attorney · KVKK & Regulatory Compliance",
@@ -440,7 +464,7 @@ VENTURES = [
 TEACHING = [
     ("Bilişim ve teknoloji toplulukları", "Bilişim ve teknoloji toplulukları", "", "Eğitmen", "Trainer", "Legal design, legaltech ve bilişim hukuku eğitimleri ve atölyeleri.", "Legal design, legaltech and IT law training and workshops."),
     ("TÜBİTAK", "TÜBİTAK", "", "Eğitmen ve Mentor", "Trainer & Mentor", "Fikri ve sınai haklar, şirketler hukuku ve yatırım süreçleri.", "Intellectual and industrial property, corporate law and investment processes."),
-    ("Türkiye İhracatçılar Birliği", "Turkish Exporters' Assembly", "", "Eğitmen", "Trainer", "Üye firmalara uluslararası ticaret hukuku ve regülasyon uyumu.", "International trade law and regulatory compliance for member companies."),
+    ("Türkiye İhracatçılar Birliği", "Turkish Exporters Assembly (TİM)", "", "Eğitmen", "Trainer", "Üye firmalara uluslararası ticaret hukuku ve regülasyon uyumu.", "International trade law and regulatory compliance for member companies."),
     ("Türkiye Fintek Topluluğu", "Türkiye Fintech Community", "2025 –", "Kurucu Üye · Eğitmen", "Founding Member · Trainer", "Fintek, regtech, ödeme hizmetleri ve Web3 atölyeleri.", "Fintech, regtech, payment services and Web3 workshops."),
     ("Solana Allstars Academy Türkiye", "Solana Allstars Academy Türkiye", "2025 – 2026", "Temsilci", "Representative", "Web3 ve blokzincir.", "Web3 and blockchain."),
     ("Yenilikçi Hukuk Akademisi", "Innovative Law Academy", "2023 – 2024", "Eğitmen", "Trainer", "Hukuk ve inovasyon eğitimleri.", "Law and innovation training."),
@@ -457,7 +481,7 @@ EDUCATION = [
 CERTS = [
     ("MASAK Uyum Görevlisi Lisansı", "MASAK Compliance Officer Licence", "Mali Suçları Araştırma Kurulu", "Financial Crimes Investigation Board", "2026", True),
     ("ISO/IEC 27001 BGYS Baş Denetçi (Lead Auditor)", "ISO/IEC 27001 ISMS Lead Auditor", "Exemplar Global / TÜRKAK", "Exemplar Global / TÜRKAK", "2025", True),
-    ("TÖDEB Fintek Çıraklık Programı", "TÖDEB Fintech Apprenticeship Programme", "Türkiye Ödeme ve Elektronik Para Kuruluşları Birliği · 9 ay, 147 saat", "Association of Payment and E-Money Institutions of Türkiye · 9 months, 147 hours", "2024 – 2025", False),
+    ("TÖDEB Fintek Çıraklık Programı", "TÖDEB Fintech Apprenticeship Programme", "Türkiye Ödeme ve Elektronik Para Kuruluşları Birliği · 9 ay, 147 saat", "Payment and Electronic Money Institutions Association of Türkiye (TÖDEB) · 9 months, 147 hours", "2024 – 2025", False),
     ("Paris Anlaşması ve Sürdürülebilir Kalkınma", "Paris Agreement and Sustainable Development", "University of Cambridge", "University of Cambridge", "2024", False),
     ("Bilişim Hukuku Bootcamp", "IT Law Bootcamp", "Legal Talks", "Legal Talks", "2024", False),
     ("Hukuk ve Teknoloji Kampı", "Law and Technology Camp", "AYBÜ", "AYBÜ", "2024", False),
@@ -482,9 +506,15 @@ def cover(i):
         [("o", 12, 18, 110, 110), ("a", 62, 52, 52, 52), ("", 40, 30, 16, 16)],
         [("", 20, 60, 90, 22), ("", 45, 30, 90, 22), ("a", 72, 18, 22, 22)],
         [("a", 10, 20, 30, 30), ("o", 30, 20, 30, 30), ("", 50, 20, 30, 30)],
-        [("", 50, 8, 130, 130), ("a", 20, 40, 60, 60)],
+        [("", 52, 6, 112, 112), ("a", 20, 40, 60, 60)],
         [("o", 8, 40, 200, 44), ("a", 58, 36, 54, 54)],
         [("", 14, 26, 64, 64), ("a", 44, 50, 64, 64), ("o", 70, 12, 64, 64)],
+        [("o", 6, 20, 60, 60), ("o", 24, 20, 60, 60), ("a", 42, 20, 60, 60), ("", 64, 34, 90, 18)],
+        [("", 10, 64, 210, 12), ("a", 30, 22, 36, 36), ("", 56, 30, 20, 20), ("o", 74, 16, 50, 50)],
+        [("a", 58, 12, 100, 100), ("", 8, 30, 120, 26), ("o", 20, 60, 120, 26)],
+        [("", 30, 10, 26, 110), ("", 44, 30, 26, 90), ("a", 58, 50, 26, 70), ("o", 72, 20, 26, 100)],
+        [("o", 36, 4, 130, 130), ("", 50, 36, 40, 40), ("a", 12, 60, 30, 30)],
+        [("a", 8, 16, 92, 44), ("", 40, 50, 92, 44), ("o", 70, 18, 60, 60)],
     ]
     spans = "".join(
         f'<span class="{c}" style="left:{x}%;top:{y}%;width:{w}px;height:{h}px"></span>'
@@ -498,7 +528,7 @@ def post_card(p, lang, extra_cls="", h="h3"):
     tr_note = ' <span class="sr-only">(in Turkish)</span>' if L else ""
     hl = ' hreflang="tr"' if L else ""
     return f'''
-        <a class="post rv{extra_cls}" href="/yazilar/{p["slug"]}/"{hl}>
+        <a class="post rv{extra_cls}" href="/yazilar/{p["slug"]}/"{hl} data-cat="{e(cat)}">
           {cover(p["cover"])}
           <div class="meta"><span class="cat">{e(cat)}</span><span>{fmt_date(p["date"], lang)} · {p["rt"]} {UI[lang]["read"]}</span></div>
           <{h}>{e(title)}{tr_note}</{h}>
@@ -532,17 +562,21 @@ def consent_panel(lang):
 
 def header(lang, alt):
     u = UI[lang]
-    nav = "".join(f'<a class="nav-link" href="{h}">{e(t)}</a>' for h, t in u["nav"])
+    menu_lbl = "Menu" if lang == "en" else "Menü"
+    menu_btn = f'<button class="menu-btn" type="button" aria-expanded="false" aria-controls="nav-links"><span class="bars" aria-hidden="true"><i></i><i></i></span><span class="sr-only">{menu_lbl}</span></button>'
     if lang == "tr":
         sw = f'<span aria-current="true">TR</span><a href="{alt}" hreflang="en" lang="en">EN</a>'
     else:
         sw = f'<a href="{alt}" hreflang="tr" lang="tr">TR</a><span aria-current="true">EN</span>'
+    # Dar ekranlarda dil anahtarı menünün içine taşınır (lang-m)
+    nav = ('<div class="nav-links" id="nav-links">' + "".join(f'<a class="nav-link" href="{h}">{e(t)}</a>' for h, t in u["nav"])
+           + f'<span class="lang lang-m">{sw}</span></div>')
     home = P("home", lang)
     return f'''
 <header class="site-head">
   <div class="wrap head-row">
-    <a class="brand" href="{home}"><span class="brand-mark" aria-hidden="true">s</span><span>{NAME}</span></a>
-    <nav class="nav" aria-label="{u["nav_label"]}">{nav}<span class="lang">{sw}</span><button class="theme-btn" type="button" data-theme-toggle aria-pressed="false" aria-label="{e(u["theme"])}">{ICON["moon"]}{ICON["sun"]}</button></nav>
+    <a class="brand" href="{home}">{NAME}</a>
+    <nav class="nav" aria-label="{u["nav_label"]}">{nav}<span class="lang">{sw}</span><button class="theme-btn" type="button" data-theme-toggle aria-pressed="false" aria-label="{e(u["theme"])}">{ICON["moon"]}{ICON["sun"]}</button>{menu_btn}</nav>
   </div>
 </header>'''
 
@@ -600,7 +634,7 @@ def layout(lang, *, title, desc, path, alt, body, og_image=None, extra_head=""):
 <meta property="og:image" content="{og}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:locale" content="{"en_US" if lang == "en" else "tr_TR"}">
+<meta property="og:locale" content="{"en_GB" if lang == "en" else "tr_TR"}">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/assets/fonts/Geist-Variable.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/style.css">{extra_head}
@@ -655,7 +689,7 @@ def home(lang):
         vents.append(f'''
         <{tag} class="v rv{" feature" if feat else ""}"{attrs}>
           <div class="top"><span class="yr">{e(yr(ye if L else yt, lang))}</span>{arrow}</div>
-          <h3>{e(name)}</h3>
+          <h3>{e(("Türkiye Fintech Community" if name == "Türkiye Fintek Topluluğu" else name) if L else name)}</h3>
           <div class="role">{e(re_ if L else rt)}</div>
           <p>{e(de if L else dt)}</p>
         </{tag}>''')
@@ -704,13 +738,19 @@ def home(lang):
           <a class="btn btn-line" href="{P("posts", lang)}">{e(c["cta2"])} {ICON["arrow"]}</a>
         </div>
       </div>
-      <figure class="reel" style="margin:0">
-        <div class="reel-frame" role="img" aria-label="{e(c["reel_label"])}"><div data-reel style="position:absolute;inset:0"></div></div>
-        <figcaption class="reel-bar">
-          <p class="reel-cap">{e(c["reel_cap"])}</p>
+      <div class="reel reels" data-reels>
+        <div class="reels-track" tabindex="0" aria-label="{"Animations" if L else "Animasyonlar"}">
+          <figure class="reel-slide"><div class="reel-frame" role="img" aria-label="{e(c["reel_label"])}"><div data-reel style="position:absolute;inset:0"></div></div></figure>
+          <figure class="reel-slide"><div class="reel-frame" role="img" aria-label="{e(c["reel2_label"])}"><div data-reel2 style="position:absolute;inset:0"></div></div></figure>
+        </div>
+        <div class="reel-bar">
+          <div class="reel-tabs" role="group" aria-label="{"Choose animation" if L else "Animasyon seç"}">
+            <button type="button" data-slide="0" aria-pressed="true">{e(c["reel1_tab"])}</button>
+            <button type="button" data-slide="1" aria-pressed="false">{e(c["reel2_tab"])}</button>
+          </div>
           <button class="reel-toggle" type="button" data-reel-toggle aria-pressed="false" data-pause="{e(c["reel_pause"])}" data-play="{e(c["reel_play"])}">{ICON["pause"]}{ICON["play"]}<span class="lbl">{e(c["reel_pause"])}</span></button>
-        </figcaption>
-      </figure>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -816,6 +856,12 @@ def home(lang):
       </div>
     </div>
   </section>'''
+    # CV sırası: önce kim olduğu ve ne yaptığı, sonra alanlar, yaklaşım ve yazılar
+    parts = re.split(r"\n\n(?=  <section |  <div class=\"marquee\")", body)
+    head_parts = [x for x in parts if 'class="hero"' in x or 'class="marquee"' in x]
+    by_id = {re.search(r'id="([^"]+)"', x).group(1): x for x in parts if x not in head_parts}
+    order = ["about", "exp", "edu", "ventures", "areas", "approach", "ld", "teach", "posts", "contact"]
+    body = "\n\n".join(head_parts + [by_id.pop(ids[k]) for k in order] + list(by_id.values()))
     other = P("home", "en" if lang == "tr" else "tr")
     return layout(lang, title=c["title"], desc=c["desc"], path=P("home", lang), alt=other, body=body,
                   extra_head="")
@@ -827,6 +873,14 @@ def posts_index(lang):
     sub = ("Compliance questions answered in plain language. The articles are in Turkish; every statutory reference was checked against primary sources."
            if L else "Uyum sorularını sade bir dille ele alan yazılar. Her yazıdaki mevzuat atfı yayın öncesinde birincil kaynaktan kontrol edildi.")
     cards = "".join(post_card(p, lang, h="h2") for p in POSTS)
+    cats = []
+    for p in POSTS:
+        c = p["cat_en"] if L else p["cat"]
+        if c not in cats:
+            cats.append(c)
+    chips = f'<button type="button" aria-pressed="true" data-cat="*">{"All" if L else "Tümü"} <span>{len(POSTS)}</span></button>' + "".join(
+        f'<button type="button" aria-pressed="false" data-cat="{e(c)}">{e(c)} <span>{sum(1 for p in POSTS if (p["cat_en"] if L else p["cat"]) == c)}</span></button>' for c in cats)
+    filt = f'<div class="filters" role="group" aria-label="{"Filter by topic" if L else "Konuya göre süz"}" data-filter>{chips}</div><p class="sr-only" aria-live="polite" data-filter-status></p>' 
     body = f'''
   <div class="wrap">
     <div class="page-head">
@@ -834,7 +888,8 @@ def posts_index(lang):
       <h1>{"Writing compliance <em>clearly.</em>" if L else "Uyumu anlaşılır <em>yazmak.</em>"}</h1>
       <p class="sub">{e(sub)}</p>
     </div>
-    <div class="posts">{cards}
+    {filt}
+    <div class="posts" data-filter-list>{cards}
     </div>
     <p class="disclaimer">{e(UI[lang]["disclaimer"])}</p>
   </div>'''
@@ -887,8 +942,8 @@ def post_page(p):
 # ---------------------------------------------------------------- hukuki sayfalar
 LEGAL_PAGES = {
     "kvkk": ({"tr": "KVKK Aydınlatma Metni", "en": "Privacy Notice"},
-             {"tr": "Bu sitede hangi kişisel verinin, hangi amaçla ve hangi hukuki sebeple işlendiği; haklarınız ve nasıl başvuracağınız.",
-              "en": "Which personal data is processed on this site, why and on what legal ground; your rights and how to apply."},
+             {"tr": "Bu site ziyaretçi verisi toplamaz. Bana e-posta gönderirseniz verinizin nasıl kullanıldığı ve haklarınız.",
+              "en": "This site collects no visitor data. How your data is used if you e-mail me, and your rights."},
              {"tr": LG.KVKK_TR, "en": LG.KVKK_EN}),
     "cookies": ({"tr": "Çerez Politikası", "en": "Cookie Policy"},
                 {"tr": "Bu site çerez kullanmaz. Tarayıcınıza neyin, ne zaman ve ne kadar süreyle yazıldığı.",
@@ -930,14 +985,43 @@ def legal_page(key, lang):
     return layout(lang, title=f"{titles[lang]} · {NAME}", desc=subs[lang], path=P(key, lang),
                   alt=P(key, "en" if lang == "tr" else "tr"), body=body)
 
+# ---------------------------------------------------------------- kaynaklar
+def resources(lang):
+    L = lang == "en"; u = UI[lang]
+    title = "Resources" if L else "Kaynaklar"
+    sub = ("Official sources I use every day: legislation, regulators and case-law databases. Only public, non-commercial links."
+           if L else "Her gün kullandığım resmî kaynaklar: mevzuat, düzenleyici kurumlar ve karar veri tabanları. Yalnızca kamuya açık, ticari olmayan bağlantılar.")
+    groups = []
+    for gt, ge, items in RESOURCES:
+        lis = "".join(
+            '<li><a href="%s" target="_blank" rel="noopener">%s</a><span>%s</span><small>%s</small></li>'
+            % (url, e(ne if L else nt), e(de if L else dt), e(url.split("//")[1].rstrip("/")))
+            for nt, ne, url, dt, de in items)
+        groups.append('<section class="res-group rv"><h2>%s</h2><ul>%s</ul></section>' % (e(ge if L else gt), lis))
+    h1 = "Useful <em>sources.</em>" if L else "Faydalı <em>kaynaklar.</em>"
+    note = "External sites have their own terms and privacy practices." if L else "Dış sitelerin kendi kullanım koşulları ve kişisel veri uygulamaları geçerlidir."
+    body = f"""
+  <div class="wrap">
+    <div class="page-head">
+      {crumbs(lang, [(P("home", lang), u["home"]), (None, title)])}
+      <h1>{h1}</h1>
+      <p class="sub">{e(sub)}</p>
+    </div>
+    <div class="res">{"".join(groups)}</div>
+    <p class="disclaimer">{e(note)}</p>
+  </div>"""
+    return layout(lang, title=f"{title} · {NAME}", desc=sub, path=P("resources", lang),
+                  alt=P("resources", "en" if lang == "tr" else "tr"), body=body)
+
 # ---------------------------------------------------------------- site haritası
 def sitemap(lang):
     L = lang == "en"; u = UI[lang]; ids = HOME_IDS[lang]; home_p = P("home", lang)
     main_links = [(home_p, u["home"])] + [
         (f"{home_p}#{ids[k]}", t) for k, t in (
-            [("about", "About"), ("areas", "Areas I work in"), ("ventures", "Ventures"), ("exp", "Experience"), ("teach", "Training & publications"), ("edu", "Education & certifications"), ("contact", "Contact")]
+            [("about", "About"), ("exp", "Experience"), ("edu", "Education & certifications"), ("ventures", "Ventures"), ("areas", "Areas I work in"), ("teach", "Training & publications"), ("contact", "Contact")]
             if L else
-            [("about", "Hakkımda"), ("areas", "Çalıştığım alanlar"), ("ventures", "Girişimler"), ("exp", "Deneyim"), ("teach", "Eğitimler ve yayınlar"), ("edu", "Eğitim ve sertifikalar"), ("contact", "İletişim")])]
+            [("about", "Hakkımda"), ("exp", "Deneyim"), ("edu", "Eğitim ve sertifikalar"), ("ventures", "Girişimler"), ("areas", "Çalıştığım alanlar"), ("teach", "Eğitimler ve yayınlar"), ("contact", "İletişim")])]
+    main_links.append((P("resources", lang), "Resources" if L else "Kaynaklar"))
     post_links = [(P("posts", lang), "All articles" if L else "Tüm yazılar")] + [(f'/yazilar/{p["slug"]}/', p["title_en"] if L else p["title"]) for p in POSTS]
     legal_links = [(P(k, lang), LEGAL_PAGES[k][0][lang]) for k in ("kvkk", "cookies", "terms", "legal", "a11y")]
     def col(t, links):
@@ -956,7 +1040,9 @@ def sitemap(lang):
       {col("Legal" if L else "Hukuki", legal_links + [(P("home", "tr" if L else "en"), "Türkçe" if L else "English")])}
     </div>
   </div>'''
-    return layout(lang, title=f"{title} · {NAME}", desc=title, path=P("sitemap", lang),
+    desc = ("Every page on Ahmet Sencer Zararsız's site: profile sections, articles and legal pages." if L
+            else "Ahmet Sencer Zararsız sitesindeki tüm sayfalar: profil bölümleri, yazılar ve hukuki sayfalar.")
+    return layout(lang, title=f"{title} · {NAME}", desc=desc, path=P("sitemap", lang),
                   alt=P("sitemap", "en" if lang == "tr" else "tr"), body=body)
 
 # ---------------------------------------------------------------- yazma
@@ -970,10 +1056,11 @@ if __name__ == "__main__":
     pages = []
     for lang in ("tr", "en"):
         html = home(lang).replace('<script src="/assets/js/main.js" defer></script>',
-                                  '<script src="/assets/js/main.js" defer></script>\n<script src="/assets/js/showreel.js" defer></script>')
+                                  '<script src="/assets/js/main.js" defer></script>\n<script src="/assets/js/showreel.js" defer></script>\n<script src="/assets/js/contractreel.js" defer></script>')
         pages.append(write(P("home", lang), html))
         pages.append(write(P("posts", lang), posts_index(lang)))
         pages.append(write(P("sitemap", lang), sitemap(lang)))
+        pages.append(write(P("resources", lang), resources(lang)))
         for k in LEGAL_PAGES:
             pages.append(write(P(k, lang), legal_page(k, lang)))
     for p in POSTS:

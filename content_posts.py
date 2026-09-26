@@ -95,7 +95,7 @@ POSTS = [
 "slug": "reklamda-kanitsiz-ustunluk-iddialari",
 "cat": "Reklam", "cat_en": "Advertising", "date": "2026-07-08",
 "title": "\"En iyi\", \"%100\", \"mucize\": reklamda kanıtsız üstünlük iddiası",
-"title_en": "\"Best\", \"100%\", \"miracle\": unsubstantiated claims in advertising",
+"title_en": "\"Best\", \"100%\", \"miracle\": unsubstantiated superiority claims in advertising",
 "excerpt": "İddia reklam verenin, ispat da reklam verenin. Hangi belge kanıt sayılır, sağlık ve kozmetikte çıta neden daha yüksek?",
 "cover": 3,
 "src": ["6502", "reklamyon", "kozmetik"],
@@ -128,7 +128,7 @@ POSTS = [
 "slug": "reklam-kurulu-nasil-calisir",
 "cat": "Reklam", "cat_en": "Advertising", "date": "2026-07-09",
 "title": "Reklam Kurulu'nda bir dosyanın yolculuğu",
-"title_en": "The life of a file at Türkiye's Advertising Board",
+"title_en": "The life cycle of a case before Türkiye's Advertising Board",
 "excerpt": "Dosya şikâyetle ya da re'sen açılır, Kurul ayda en az bir kez toplanır. Başvurudan yaptırıma kadar her durak ve ispatın zamanlaması.",
 "cover": 4,
 "src": ["6502", "rkyon", "reklamyon"],
@@ -164,7 +164,7 @@ POSTS = [
 "slug": "iys-kanal-bazli-onay-ve-ret",
 "cat": "E-ticaret", "cat_en": "E-commerce", "date": "2026-07-05",
 "title": "SMS atmadan önce: İYS'de kanal bazlı onay ve 3 iş günü kuralı",
-"title_en": "Before you hit send: channel-based consent and the 3-business-day rule",
+"title_en": "Before you hit send: channel-based consent and the 3-working-day rule",
 "excerpt": "Kargo için verilen numara kampanya onayı değildir. Onay kanal bazında alınır, İYS'ye kaydedilir; ret gelince saat işlemeye başlar.",
 "cover": 5,
 "src": ["6563", "iysyon"],
@@ -187,7 +187,7 @@ POSTS = [
 <div class="test"><b>Pratik test</b>Son kampanya SMS'inizi açın. Alıcı kim olduğunuzu görüyor mu? Tek adımda ve ücretsiz reddedebiliyor mu? O numara için SMS kanalında İYS onay kaydınız var mı? Biri bile "hayır"sa o gönderim şikâyete aday.</div>
 
 <h2>Ret gelince saat işlemeye başlar</h2>
-<p>Alıcı onayını her an ve gerekçe göstermeden geri alabilir (6563 s. Kanun m.8/1). Gönderim, ret talebinin ulaşmasından itibaren <strong>3 iş günü</strong> içinde durdurulmalıdır (m.8/2). Doğrudan size iletilen retleri de 3 iş günü içinde İYS'ye bildirmeniz gerekir (Yönetmelik m.9/6). Uygulamada en sık takılınan yer burasıdır: ret İYS'ye düşer, kimse gönderim listesini güncellemez ve dördüncü gün giden tek bir SMS şikâyete dönüşür.</p>
+<p>Alıcı onayını her an ve gerekçe göstermeden geri alabilir (6563 s. Kanun m.8/1). Gönderim, ret talebinin ulaşmasından itibaren <strong>3 iş günü</strong> içinde durdurulmalıdır (m.8/3). Ret bildiriminin kolay ve ücretsiz iletilebilmesini sağlamak da gönderenin yükümlülüğüdür (m.8/2). Doğrudan size iletilen retleri de 3 iş günü içinde İYS'ye bildirmeniz gerekir (Yönetmelik m.9/6). Uygulamada en sık takılınan yer burasıdır: ret İYS'ye düşer, kimse gönderim listesini güncellemez ve dördüncü gün giden tek bir SMS şikâyete dönüşür.</p>
 <p>Gece yarısı gönderimi yasaklayan bir hüküm 6563'te ve bu Yönetmelik'te yoktur. Ama ret düğmesine en hızlı o saatte basılır.</p>
 
 <h2>Esnaf ve tacirler</h2>

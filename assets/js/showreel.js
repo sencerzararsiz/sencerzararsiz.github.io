@@ -20,6 +20,7 @@
       cookieT: "Çerez tercihleri",
       cookieP: "Analitik çerezleri yalnızca onay verirseniz kullanırız.",
       reject: "Reddet",
+      prefs: "Tercihler",
       accept: "Kabul et",
       smsT: "SMS ile bilgilendirme",
       smsS: "Onay İYS'ye iletildi",
@@ -39,6 +40,7 @@
       cookieT: "Cookie preferences",
       cookieP: "We only use analytics cookies if you say yes.",
       reject: "Reject",
+      prefs: "Preferences",
       accept: "Accept",
       smsT: "SMS updates",
       smsS: "Consent sent to İYS",
@@ -64,7 +66,7 @@
         '<div class="sr-c sr-load" data-s="load"><svg viewBox="0 0 30 30"><circle cx="15" cy="15" r="11" fill="none" stroke="currentColor" stroke-opacity=".2" stroke-width="3"/><circle class="arc" cx="15" cy="15" r="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray=".28 1"/></svg></div>' +
         '<div class="sr-c sr-check" data-s="check"><svg viewBox="0 0 30 30" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path class="tick" d="M8 15.5l4.8 4.8L22.5 10" pathLength="1" stroke-dasharray="1 1"/></svg></div>' +
         '<div class="sr-c sr-find" data-s="find"><span class="l"><i class="dot"></i>' + T.found + '</span><span class="mini">' + T.fix + '</span></div>' +
-        '<div class="sr-c sr-cookie" data-s="cookie"><div><strong>' + T.cookieT + '</strong><p>' + T.cookieP + '</p></div><div class="row"><span class="b rej">' + T.reject + '</span><span class="b">' + T.accept + '</span></div></div>' +
+        '<div class="sr-c sr-cookie" data-s="cookie"><div><strong>' + T.cookieT + '</strong><p>' + T.cookieP + '</p></div><div class="row"><span class="b rej">' + T.reject + '</span><span class="b">' + T.prefs + '</span><span class="b">' + T.accept + '</span></div></div>' +
         '<div class="sr-c sr-toggle" data-s="toggle"><span class="t"><strong>' + T.smsT + '</strong><small>' + T.smsS + '</small></span><span class="sr-sw"><i class="sr-knob"></i></span></div>' +
         '<div class="sr-c sr-legal" data-s="legal"><span class="sr-chip">' + T.legalChip + '</span><p>' + T.legal + '</p></div>' +
         '<div class="sr-c sr-plain" data-s="plain"><span class="sr-chip">' + T.plainChip + '</span><p>' + T.plain + '</p><span class="ref">' + T.plainRef + '</span></div>' +
@@ -154,7 +156,7 @@
   // Cursor pozisyonu (sahne koordinatı, ucun konumu)
   var curT = track([
     [0, [468, 488]], [0.3, [304, 304]], [1.55, [438, 420]],
-    [4.25, [414, 304]], [5.55, [470, 440]], [5.95, [218, 350]],
+    [4.25, [414, 304]], [5.55, [470, 440]], [5.95, [192, 350]],
     [7.35, [468, 432]], [8.05, [406, 302]], [9.2, [470, 424]],
     [12.85, [236, 221]], [13.45, [470, 438]], [15.1, [468, 488]]
   ], 1.7, 0.9);

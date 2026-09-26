@@ -61,7 +61,7 @@ NEW_POSTS = [
 <p>Dördünü tek kelimeyle anmak, bir sözleşme şablonu ile bir dil modelini aynı risk sepetine koymak demektir. Oysa ilkinin hatası öngörülebilirdir, sonuncusununki değil.</p>
 
 <h2>Ürünün içinden: kural mı, model mi?</h2>
-<p>Legalitify'da ve GameLaw.io'da çalışırken en çok tartıştığımız soru buydu: bir bulgu hangi katmandan gelmeli? Bir web sitesinde çerez politikası bağlantısı var mı, reddet düğmesi ilk ekranda mı, sözleşmede cayma süresi yazıyor mu? Bu sorular kurala dönüştürülebilir. Kural, avukatın yazdığı ve her seferinde aynı sonucu veren bir kontroldür.</p>
+<p>Legaltech ürünlerinin hukuki tarafında en sık tartışılan soru şudur: bir bulgu hangi katmandan gelmeli? Bir web sitesinde çerez politikası bağlantısı var mı, reddet düğmesi ilk ekranda mı, sözleşmede cayma süresi yazıyor mu? Bu sorular kurala dönüştürülebilir. Kural, avukatın yazdığı ve her seferinde aynı sonucu veren bir kontroldür.</p>
 <p>Yapay zekâ ise kuralın yetmediği yerde devreye girer: bir reklam cümlesinin yanıltıcı olup olmadığını yorumlamak, bir oyun mağaza sayfasındaki beyanları okumak. Burada tek bir çizgim var. <strong>Kaynağı gösterilmeyen bulgu, bulgu değildir.</strong> Model bir madde numarası öneriyorsa o madde birincil kaynaktan kontrol edilmeden kullanıcıya gösterilmemelidir.</p>
 
 <div class="test"><b>Pratik test</b>Kullandığınız legaltech aracı size bir risk gösterdiğinde, hangi mevzuat hükmüne dayandığını tek tıkla açabiliyor musunuz? Açamıyorsanız elinizdeki şey bir görüş değil, bir tahmindir.</div>
@@ -71,7 +71,7 @@ NEW_POSTS = [
 <p>Sağlayıcı yurt dışındaysa bir adım daha vardır: aktarım, 7499 sayılı Kanun'la 2024'te değişen KVKK m.9'daki yeterlilik kararı, uygun güvence veya arızi aktarım şartlarından birine dayanmalıdır. Bir yapay zekâ servisine gönderilen her sözleşme, bu sorunun cevabını ister.</p>
 
 <h2>Avukatın yerini alır mı?</h2>
-<p>Hayır; ama iş bölümünü değiştirir. Tekrar eden kontrol makineye geçer, yorum ve sorumluluk avukatta kalır. Legaltech'in değeri, avukatın zamanını tarama işinden alıp karar gerektiren işe vermesindedir. Bunun için de kuralları yazan kişinin hem hukuku hem ürünün nasıl çalıştığını bilmesi gerekir.</p>
+<p>Hayır; ama iş bölümünü değiştirir. Tekrar eden kontrol makineye geçer, yorum ve sorumluluk avukatta kalır. Legaltech'in değeri, avukatın zamanını tarama işinden alıp karar gerektiren işe vermesindedir. Bunun için kuralları yazan ekipte hem hukuku hem ürünün nasıl çalıştığını bilen biri bulunmalıdır.</p>
 """,
 },
 # ---------------------------------------------------------------------------
@@ -84,10 +84,10 @@ NEW_POSTS = [
 "cover": 10,
 "src": ["tebligaydin", "6698", "hagan"],
 "body": """
-<p>Legal design, tasarım yöntemlerini hukuki metinlere, belgelere ve süreçlere uygulamaktır. Soru şudur: bu metni okuyan kişi, ne yapması gerektiğini anlıyor mu? Yaklaşım, Stanford Hukuk Fakültesi'ndeki Legal Design Lab'i yöneten Margaret Hagan'ın çalışmaları gibi akademik çalışmalarla yaygınlaştı; bugün sözleşmelerden mahkeme formlarına kadar geniş bir alanda uygulanıyor.</p>
+<p>Legal design, tasarım yöntemlerini hukuki metinlere, belgelere ve süreçlere uygulamaktır. Soru şudur: bu metni okuyan kişi, ne yapması gerektiğini anlıyor mu? Yaklaşım, Stanford Hukuk Fakültesi'ndeki Legal Design Lab'i yöneten Margaret Hagan'ın akademik çalışmalarıyla yaygınlaştı; bugün sözleşmelerden mahkeme formlarına kadar geniş bir alanda uygulanıyor.</p>
 
 <h2>Süsleme değil, yükümlülük</h2>
-<p>Legal design çoğu zaman "metni güzelleştirmek" sanılır. Türk hukukunda bazı metinler için okunurluk bir tercih değil, şarttır. Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ, ilgili kişiye yapılacak bildirimin <strong>anlaşılır, açık ve sade bir dil</strong> kullanılarak yapılmasını ister (m.5/1-ğ). Aynı Tebliğ genel nitelikte ve muğlak ifadeleri de yasaklar (m.5/1-g). Yani okunamayan bir aydınlatma metni, sadece kötü tasarlanmış değil, eksik yerine getirilmiş bir yükümlülüktür.</p>
+<p>Legal design çoğu zaman "metni güzelleştirmek" sanılır. Türk hukukunda bazı metinler için okunurluk bir tercih değil, şarttır. Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ, ilgili kişiye yapılacak bildirimin <strong>anlaşılır, açık ve sade bir dil</strong> kullanılarak yapılmasını ister (m.5/1-ğ). Aynı Tebliğ genel nitelikte ve muğlak ifadeleri de yasaklar (m.5/1-g). Okunamayan bir aydınlatma metni, eksik yerine getirilmiş bir yükümlülüktür.</p>
 
 <h2>Dört araç</h2>
 <h3>1. Sade dil</h3>
@@ -99,7 +99,7 @@ NEW_POSTS = [
 <h3>4. Kullanıcı testi</h3>
 <p>Metni, hedef kitleden beş kişiye okutun ve üç soru sorun: Ne kabul ettiniz? Ne zamana kadar? Vazgeçmek isterseniz ne yaparsınız? Cevaplar farklıysa metin çalışmıyor demektir.</p>
 
-<div class="test"><b>Pratik test</b>Ana sayfadaki <a href="/#legal-design">"Hukukça / Sade dil"</a> örneğinde aynı paragrafın iki hâli var. 69 kelimelik tek cümle ile beş satırlık tablo aynı hukuki sebebi anlatıyor.</div>
+<div class="test"><b>Pratik test</b>Ana sayfadaki <a href="/#legal-design">"Hukukça / Sade dil"</a> örneğinde aynı paragrafın iki hâli var. 69 kelimelik tek cümle ile beş satırlık tablo aynı hukuki sebebi anlatıyor. Şimdi kendi metninizden bir paragraf seçin: aynı bilgiyi beş satırlık bir tabloya sığdırabiliyor musunuz? Sığmıyorsa paragraf bir değil, birden fazla şey söylüyordur.</div>
 
 <h2>Ne değildir?</h2>
 <ul>

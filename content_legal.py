@@ -10,93 +10,38 @@ EMAIL = "avahmetsencerzararsiz@gmail.com"
 
 # --------------------------------------------------------------------------- KVKK
 KVKK_TR = f"""
-<div class="test"><b>Kısaca</b>Bu site çerez, analitik aracı ya da form kullanmaz. Kişisel verinizi yalnızca bana e-posta gönderdiğinizde ve bir hakkınızı kullanmak için başvurduğunuzda işlerim.</div>
+<div class="test"><b>Kısaca</b>Bu site çerez, analitik aracı ya da form kullanmaz ve ziyaretçi verisi toplamaz. Kişisel veriniz yalnızca bana e-posta gönderirseniz işlenir.</div>
 
 <h2 id="veri-sorumlusu">1. Veri sorumlusu</h2>
-<p>Bu metin, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) m.10 ve Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ uyarınca hazırlanmıştır. Veri sorumlusu <strong>Ahmet Sencer Zararsız</strong>'dır. İletişim: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<p>Bu metin 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) m.10 uyarınca hazırlanmıştır. Veri sorumlusu <strong>Ahmet Sencer Zararsız</strong>'dır. İletişim: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 
-<h2 id="islenen-veriler">2. Hangi veriyi, neden ve hangi hukuki sebeple işliyorum?</h2>
-<div class="table-wrap"><table>
-<caption>İşleme faaliyetleri</caption>
-<thead><tr><th scope="col">Faaliyet</th><th scope="col">Veri</th><th scope="col">Amaç</th><th scope="col">Hukuki sebep</th></tr></thead>
-<tbody>
-<tr><td>E-posta yazışması</td><td>Ad-soyad, e-posta adresi, mesajda ve eklerde paylaştığınız bilgiler</td><td>Mesajınızı yanıtlamak, yazışmayı yürütmek</td><td>Meşru menfaat, KVKK m.5/2-f. Yazışma bir sözleşmenin kurulmasına yönelikse KVKK m.5/2-c.</td></tr>
-<tr><td>Hak kullanım başvurusu</td><td>Başvuruda yer alan kimlik, iletişim ve talep bilgileri</td><td>Başvurunuzu sonuçlandırmak ve sonuçlandırdığımı ispat etmek</td><td>Hukuki yükümlülük, KVKK m.5/2-ç (KVKK m.13)</td></tr>
-</tbody></table></div>
-<p>Verileriniz, e-posta ile gönderdiğiniz anda elektronik ortamda ve sizin tarafınızdan iletilerek toplanır. Profil çıkarma ya da otomatik karar verme yapmam.</p>
-<p>Mesajınıza özel nitelikli kişisel veri (sağlık, ceza mahkûmiyeti gibi, KVKK m.6) eklememenizi rica ederim. Böyle bir veri gelirse yalnızca yanıt için gereken ölçüde kullanır, gerekmiyorsa silerim.</p>
+<h2 id="e-posta">2. Bana e-posta gönderdiğinizde</h2>
+<p>Adınızı, e-posta adresinizi ve mesajınızda paylaştığınız bilgileri yalnızca mesajınızı yanıtlamak için kullanırım. Hukuki sebep meşru menfaattir (KVKK m.5/2-f). Veriler, e-posta yoluyla elektronik ortamda toplanır ve e-posta hizmet sağlayıcısının altyapısında saklanır. Pazarlama amacıyla kimseyle paylaşılmaz. Yazışma, konu sonuçlandıktan sonra 2 yıl içinde silinir.</p>
+<p>Mesajınıza sağlık bilgisi gibi özel nitelikli kişisel veri (KVKK m.6) eklememenizi rica ederim.</p>
 
 <h2 id="site-ziyareti">3. Siteyi ziyaret ettiğinizde</h2>
-<p>Ben bu sitede ziyaretçi verisi toplamıyorum. Sayfalar çerez yazmaz, analitik ya da reklam aracı yüklemez, üçüncü taraf sunucudan yazı tipi dahil hiçbir kaynak çekmez.</p>
-<p>Site, GitHub, Inc. altyapısında (GitHub Pages) barındırılır. GitHub, belgelerinde bir GitHub Pages sitesi ziyaret edildiğinde ziyaretçinin IP adresini güvenlik amacıyla kaydettiğini açıklar. Bu kayıtlara erişimim yoktur; amaçlarını ve yöntemini GitHub belirler. Bu işleme <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener" target="_blank">GitHub Gizlilik Bildirimi</a>'ne tabidir.</p>
-<p>Seçiminize bağlı olarak tarayıcınızın yerel depolamasına iki küçük kayıt yazılabilir. Bu kayıtlar cihazınızda kalır, bana iletilmez. Ayrıntılar <a href="/cerez-politikasi/">Çerez Politikası</a>'ndadır.</p>
+<p>Sayfalar çerez yazmaz, analitik ya da reklam aracı yüklemez, başka bir sunucudan kaynak çekmez. Site GitHub Pages üzerinde barındırılır; barındırma hizmetinin sunucu kayıtları <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener" target="_blank">GitHub Gizlilik Bildirimi</a>'ne tabidir. Tarayıcınıza yazılabilecek iki küçük tercih kaydı <a href="/cerez-politikasi/">Çerez Politikası</a>'nda açıklanmıştır.</p>
 
-<h2 id="aktarim">4. Aktarım</h2>
-<p>Verilerinizi satmam, pazarlama amacıyla kimseyle paylaşmam.</p>
-<p>E-posta kutum Google LLC'nin sunduğu Gmail hizmetindedir. Bu nedenle bana gönderdiğiniz mesaj, e-posta hizmetinin sunulması amacıyla hizmet sağlayıcının yurt dışındaki sunucularında saklanır. Bu aktarım KVKK m.9 kapsamındadır.</p>
-<p>Bir hakkın tesisi, kullanılması veya korunması ya da kanuni yükümlülük gerektirdiğinde, verileriniz yetkili kamu kurumlarına ve yargı mercilerine KVKK m.8/2-a uyarınca aktarılabilir.</p>
-
-<h2 id="saklama">5. Saklama süresi</h2>
-<p>Yazışmaları, konu sonuçlandıktan sonra <strong>2 yıl</strong> saklar, ardından silerim. Hak kullanım başvurularını ve yanıtlarını, ispat amacıyla sonuçlandırma tarihinden itibaren 2 yıl saklarım. Süre dolmadan işleme sebebi ortadan kalkarsa veriyi KVKK m.7 uyarınca daha erken silerim.</p>
-
-<h2 id="haklariniz">6. Haklarınız</h2>
-<p>KVKK m.11 uyarınca bana başvurarak şunları talep edebilirsiniz:</p>
-<ul>
-<li>Kişisel verinizin işlenip işlenmediğini öğrenme,</li>
-<li>İşlenmişse buna ilişkin bilgi talep etme,</li>
-<li>İşleme amacını ve verinin amacına uygun kullanılıp kullanılmadığını öğrenme,</li>
-<li>Yurt içinde veya yurt dışında verinin aktarıldığı üçüncü kişileri bilme,</li>
-<li>Eksik veya yanlış işlenmişse düzeltilmesini isteme,</li>
-<li>KVKK m.7'deki şartlar çerçevesinde silinmesini veya yok edilmesini isteme,</li>
-<li>Düzeltme, silme ve yok etme işlemlerinin veriyi aktardığım üçüncü kişilere bildirilmesini isteme,</li>
-<li>Münhasıran otomatik sistemlerle analiz sonucu aleyhinize bir sonuç çıkmasına itiraz etme,</li>
-<li>Kanuna aykırı işleme nedeniyle zarara uğramanız hâlinde zararın giderilmesini talep etme.</li>
-</ul>
-
-<h2 id="basvuru">7. Nasıl başvurursunuz?</h2>
-<p>Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ m.5/1 uyarınca başvurunuzu yazılı olarak, kayıtlı elektronik posta (KEP) adresi, güvenli elektronik imza veya mobil imza ile ya da <strong>daha önce bana yazdığınız ve sistemimde kayıtlı e-posta adresinizden</strong> <a href="mailto:{EMAIL}">{EMAIL}</a> adresine iletebilirsiniz. Yazılı başvuru için posta adresimi e-postayla talep edebilirsiniz.</p>
-<p>Başvuru Türkçe olmalı (Tebliğ m.4/2) ve şunları içermelidir (Tebliğ m.5/2): ad-soyad, yazılı başvuruda imza; T.C. kimlik numarası (yabancılar için uyruk ile pasaport veya kimlik numarası); tebligata esas adres; varsa e-posta, telefon veya faks; talep konusu.</p>
-<p>Başvurunuzu en geç <strong>30 gün</strong> içinde ücretsiz sonuçlandırırım (KVKK m.13/2). Yanıt 10 sayfayı aşarsa her sayfa için 1 TL işlem ücreti alınabilir (Tebliğ m.7). Başvurunuz reddedilir, yanıtı yetersiz bulursunuz veya süresinde yanıt alamazsanız, yanıtı öğrendiğiniz tarihten itibaren 30 ve her hâlde başvuru tarihinden itibaren 60 gün içinde Kişisel Verileri Koruma Kurulu'na şikâyette bulunabilirsiniz (KVKK m.14/1).</p>
+<h2 id="haklariniz">4. Haklarınız</h2>
+<p>KVKK m.11 uyarınca verinizin işlenip işlenmediğini öğrenme, bilgi isteme, düzeltme, silme ve itiraz haklarına sahipsiniz. Talebinizi <a href="mailto:{EMAIL}">{EMAIL}</a> adresine iletebilirsiniz; en geç 30 gün içinde ücretsiz sonuçlandırırım (KVKK m.13/2).</p>
 """
 
 KVKK_EN = f"""
 <p class="note">This is a courtesy translation. The Turkish version is the binding text.</p>
-<div class="test"><b>In short</b>This site uses no cookies, analytics or forms. I only process your personal data when you e-mail me or apply to exercise a right.</div>
+<div class="test"><b>In short</b>This site uses no cookies, analytics or forms and collects no visitor data. Your personal data is processed only if you e-mail me.</div>
 
 <h2 id="controller">1. Data controller</h2>
-<p>This notice is given under Article 10 of Türkiye's Personal Data Protection Law No. 6698 (KVKK) and the Communiqué on the Duty to Inform. The data controller is <strong>Ahmet Sencer Zararsız</strong>. Contact: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
+<p>This notice is given under Article 10 of Türkiye's Personal Data Protection Law No. 6698 (KVKK). The data controller is <strong>Ahmet Sencer Zararsız</strong>. Contact: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
 
-<h2 id="data">2. What I process, why, and on what legal ground</h2>
-<div class="table-wrap"><table>
-<caption>Processing activities</caption>
-<thead><tr><th scope="col">Activity</th><th scope="col">Data</th><th scope="col">Purpose</th><th scope="col">Legal ground</th></tr></thead>
-<tbody>
-<tr><td>E-mail correspondence</td><td>Name, e-mail address, anything you include in the message or attachments</td><td>Replying to you and handling the correspondence</td><td>Legitimate interest, KVKK Art. 5(2)(f). Where the exchange aims at concluding a contract, KVKK Art. 5(2)(c).</td></tr>
-<tr><td>Data subject requests</td><td>Identity, contact and request details in your application</td><td>Resolving your request and being able to prove it</td><td>Legal obligation, KVKK Art. 5(2)(ç) (KVKK Art. 13)</td></tr>
-</tbody></table></div>
-<p>Data is collected electronically, when you send it by e-mail. I do no profiling and no automated decision-making.</p>
-<p>Please do not include special categories of data (such as health or criminal records, KVKK Art. 6). If you do, I use them only as far as needed to reply, and otherwise delete them.</p>
+<h2 id="email">2. If you e-mail me</h2>
+<p>I use your name, e-mail address and anything you share in your message only to reply to you. The legal basis is legitimate interest (KVKK Art. 5(2)(f)). Data is collected electronically by e-mail and stored on the e-mail service provider's infrastructure. It is not shared with anyone for marketing. Correspondence is deleted within 2 years after the matter is closed.</p>
+<p>Please do not include special categories of personal data, such as health data (KVKK Art. 6).</p>
 
 <h2 id="visits">3. When you visit the site</h2>
-<p>I collect no visitor data. Pages set no cookies, load no analytics or ad tools, and fetch nothing (not even fonts) from third-party servers.</p>
-<p>The site is hosted on GitHub Pages by GitHub, Inc. GitHub's documentation states that when a GitHub Pages site is visited, the visitor's IP address is logged and stored for security purposes. I have no access to these logs; GitHub decides their purpose and means, under the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener" target="_blank">GitHub Privacy Statement</a>.</p>
-<p>Depending on your choice, two small entries may be written to your browser's local storage. They stay on your device and are never sent to me. See the <a href="/en/cookies/">Cookie Policy</a>.</p>
+<p>Pages set no cookies, load no analytics or advertising tools and fetch nothing from other servers. The site is hosted on GitHub Pages; the hosting provider's server logs are governed by the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener" target="_blank">GitHub Privacy Statement</a>. The two small preference entries that may be written to your browser are explained in the <a href="/en/cookies/">Cookie Policy</a>.</p>
 
-<h2 id="transfers">4. Transfers</h2>
-<p>I never sell your data or share it for marketing.</p>
-<p>My mailbox runs on Google LLC's Gmail service, so messages you send me are stored on the provider's servers outside Türkiye for the purpose of providing the e-mail service. This transfer falls under KVKK Art. 9.</p>
-<p>Where needed to establish, exercise or defend a right, or required by law, data may be disclosed to competent authorities and courts under KVKK Art. 8(2)(a).</p>
-
-<h2 id="retention">5. Retention</h2>
-<p>I keep correspondence for <strong>2 years</strong> after the matter is closed and then delete it. Data subject requests and my replies are kept for 2 years from resolution, as evidence. If the reason for processing ends sooner, I delete earlier (KVKK Art. 7).</p>
-
-<h2 id="rights">6. Your rights</h2>
-<p>Under KVKK Art. 11 you may ask me to: learn whether your data is processed; request information about it; learn the purpose and whether it is used accordingly; know the third parties it was transferred to in Türkiye or abroad; have it corrected; have it erased or destroyed under Art. 7; have corrections or erasures notified to those third parties; object to an adverse outcome resulting solely from automated analysis; and claim compensation for damage caused by unlawful processing.</p>
-
-<h2 id="apply">7. How to apply</h2>
-<p>Under Art. 5(1) of the Communiqué on Applications to the Data Controller, you may apply in writing, via registered e-mail (KEP), secure electronic or mobile signature, or <strong>from an e-mail address you have previously used to write to me</strong>, sent to <a href="mailto:{EMAIL}">{EMAIL}</a>. You can ask for my postal address by e-mail for written applications.</p>
-<p>Applications must be in Turkish (Communiqué Art. 4(2)) and include your name (and signature for written applications), Turkish ID number (or nationality and passport/ID number for foreigners), address for notifications, any e-mail/phone/fax, and the subject of your request (Art. 5(2)).</p>
-<p>I resolve requests free of charge within <strong>30 days</strong> (KVKK Art. 13(2)); a fee of TRY 1 per page may apply beyond 10 pages (Communiqué Art. 7). If your request is refused, the reply is inadequate or late, you may complain to the Personal Data Protection Board within 30 days of learning the reply and in any case within 60 days of applying (KVKK Art. 14(1)).</p>
+<h2 id="rights">4. Your rights</h2>
+<p>Under KVKK Art. 11 you have the right to learn whether your data is processed, request information, and request rectification, erasure or object. Send your request to <a href="mailto:{EMAIL}">{EMAIL}</a>; I will resolve it free of charge within 30 days (KVKK Art. 13(2)).</p>
 """
 
 # --------------------------------------------------------------------------- Çerez
@@ -114,7 +59,7 @@ def _storage_table(lang):
 <thead><tr><th scope="col">Key</th><th scope="col">Type</th><th scope="col">Purpose</th><th scope="col">When written</th><th scope="col">Duration</th></tr></thead>
 <tbody>
 <tr><td><code>sz-consent</code></td><td>Necessary</td><td>Remembers your choice in the cookie panel, so it doesn't reappear on every page.</td><td>When you make a choice in the panel</td><td>12 months, then you're asked again</td></tr>
-<tr><td><code>sz-theme</code></td><td>Preference</td><td>Remembers your light or dark theme choice.</td><td>Only if you allowed preference storage and pressed the theme button</td><td>Until you withdraw, at most 12 months</td></tr>
+<tr><td><code>sz-theme</code></td><td>Preference</td><td>Remembers your light or dark theme choice.</td><td>Only if you allowed preference storage and pressed the theme button</td><td>Until you withdraw consent, at most 12 months</td></tr>
 </tbody></table></div>"""
 
 
@@ -156,7 +101,7 @@ COOKIES_EN = f"""
 <p>These entries stay on your device and are never sent to me or anyone else. If you don't allow preference storage, the theme button still works, but only for the page you're on.</p>
 
 <h2 id="why">3. Why I ask</h2>
-<p>The Turkish DPA's Cookie Guidelines (July 2025) cover cookies and state that they give no guidance on similar technologies such as local storage. They list remembering privacy choices as an example of a strictly necessary cookie, and treat a session-length language-choice cookie that the user explicitly requests by pressing a button as not requiring consent.</p>
+<p>The Personal Data Protection Authority's Guidelines on Cookie Practices (July 2025) cover cookies and state that they give no guidance on similar technologies such as local storage. They list remembering privacy choices as an example of a strictly necessary cookie, and treat a session-length language-choice cookie that the user explicitly requests by pressing a button as not requiring explicit consent.</p>
 <p>A theme choice is similar. I still take the cautious route and write <code>sz-theme</code> only if you allow it.</p>
 
 <h2 id="panel">4. How the panel works</h2>
@@ -198,7 +143,7 @@ TERMS_EN = """
 <p>Articles provide general information based on the law in force when published; the law may change. Current law and the specific facts must be assessed before applying anything to a real case. Visiting the site, reading articles or sending an e-mail does not create a lawyer-client relationship.</p>
 
 <h2 id="ip">3. Intellectual property</h2>
-<p>Texts, design and animation code belong to Ahmet Sencer Zararsız. You may quote short passages with attribution and a link; you may not reproduce or republish full texts without permission. Fonts are used under the SIL Open Font License.</p>
+<p>Copyright in the texts, design and animation code belongs to Ahmet Sencer Zararsız. You may quote short passages with attribution and a link; you may not reproduce or republish full texts without permission. Fonts are used under the SIL Open Font License.</p>
 
 <h2 id="links">4. External links</h2>
 <p>The site links to external sites such as LinkedIn and GameLaw.io. I am not responsible for their content or data practices; their own terms apply.</p>
@@ -272,6 +217,7 @@ A11Y_TR = f"""
 """
 
 A11Y_EN = f"""
+<p class="note">This is a courtesy translation. The Turkish version is the binding text.</p>
 <div class="test"><b>Conformance status</b>This site targets Web Content Accessibility Guidelines (WCAG) 2.2 level AA and is <strong>partially conformant</strong>. Known gaps are listed below.</div>
 
 <h2 id="measures">1. What I've done</h2>
@@ -295,5 +241,5 @@ A11Y_EN = f"""
 <p>Last assessed on {UPDATED["en"]}: automated scan with axe-core, manual keyboard navigation, contrast calculation and a 375 px mobile check.</p>
 
 <h2 id="feedback">4. Feedback</h2>
-<p>If you can't access something, write to <a href="mailto:{EMAIL}?subject=Accessibility">{EMAIL}</a>. I commit to replying within 10 business days and providing the content in a suitable format.</p>
+<p>If you can't access something, write to <a href="mailto:{EMAIL}?subject=Accessibility">{EMAIL}</a>. I commit to replying within 10 working days and providing the content in a suitable format.</p>
 """
